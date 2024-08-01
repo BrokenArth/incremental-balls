@@ -21,7 +21,7 @@
 
     <!-- Ball count -->
     <p class="textCenterHorizontal">
-      You have <span id="ballCount">0</span> balls (<span id="perSecondCount">0</span>/s)
+      You have <span id="ballCount">0</span> balls (<span class="perSecondCount-1">0</span>/s)
     </p>
     
     <!-- Ball clicker -->
@@ -112,11 +112,66 @@
 
       <!-- Settings Tab -->
       <div id="tab-settings" data-tab-content>
-        <p class="textCenterHorizontal settingsTitle">Settings</p>
 
-        <button type="button" class="centerHorizontal ballButtons settingButtons" id="killYourself" onclick="refreshPage()">
-          Kill yourself
-        </button>
+        <div class="settingsGroup">
+
+          <div>
+            <p class="textCenterHorizontal settingsTitle">Settings</p>
+
+            <div class="settingsButtonsGroup">
+              <div class="export-import">
+                <button type="button" class="centerHorizontal ballButtons settingButtons" id="export" onclick="">
+                  Export
+                </button>
+
+                <button type="button" class="centerHorizontal ballButtons settingButtons" id="import" onclick="">
+                  Import
+                </button>
+              </div>
+
+              <button type="button" class="centerHorizontal ballButtons settingButtons" id="killYourself" onclick="refreshPage()">
+                Kill yourself
+              </button>
+            </div>
+          </div>
+
+          <div>
+            <p class="textCenterHorizontal settingsTitle">Stats</p>
+
+            <div class="statsGroup">
+
+              <p>
+                <span class="statsHighlight">BPS</span>
+                =
+                (<span class="statsHighlight">base</span>
+                *
+                (1 + <span class="statsHighlight">multi</span>))
+                ^
+                (1 + <span class="statsHighlight">exp</span>)
+              </p>
+              
+              <p>
+                <span class="statsHighlight">BPS</span> = <span class="perSecondCount-2">0</span>
+              </p>
+
+              <p>
+                <span class="statsHighlight">base</span> = <span class="baseCount">0</span>
+              </p>
+
+              <p>
+                <span class="statsHighlight">multi</span> = <span class="multiCount">0</span>
+              </p>
+
+              <p>
+                <span class="statsHighlight">exp</span> = <span class="expCount">0</span>
+              </p>
+
+            </div>
+
+          </div>
+
+        </div>
+
       </div>
 
     </div>
