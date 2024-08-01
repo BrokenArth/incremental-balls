@@ -41,8 +41,20 @@ function ballsPerSecondFunction() {
   let currentCount = parseFloat(ballCount.textContent);
   ballCount.textContent = (currentCount + ballsPerSecond).toFixed(2);
 
-  let perSecondCount = document.querySelector("#perSecondCount");
-  perSecondCount.textContent = ballsPerSecond.toFixed(2);
+  let perSecondCount1 = document.querySelector(".perSecondCount-1");
+  perSecondCount1.textContent = ballsPerSecond.toFixed(2); // BPS counter next to balls
+
+  let perSecondCount2 = document.querySelector(".perSecondCount-2");
+  perSecondCount2.textContent = ballsPerSecond.toFixed(2); // BPS in settings
+
+  let baseCount = document.querySelector(".baseCount");
+  baseCount.textContent = baseBPS.toFixed(2); // base in settings
+
+  let multiCount = document.querySelector(".multiCount");
+  multiCount.textContent = multiBPS.toFixed(2); // multi in settings
+
+  let expCount = document.querySelector(".expCount");
+  expCount.textContent = expBPS.toFixed(2); // exp in settings
 };
 
 function ballsPerSecondLoop() {
