@@ -1,22 +1,65 @@
 // Ball count element
-let ballCount = document.querySelector("#ballCount");
+let ballCountElement = document.querySelector("#ballCount");
+
+// Store the actual values (the displayed ones will be formatted)
+let ballCount = 0;
+let ballsPerSecond = 0;
+let baseBPS = 0;
+let multiBPS = 0;
+let expBPS = 0;
+
+// Intermediate upgrade effect stuff
+let iU1_6 = 1; // iU1 and iU6 effects (they do the same thing)
+
+let iU2 = 0;
+let iU2_purchased = false;
+
+let iU3 = 1;
+
+let iU5 = 0;
+let iU5_purchased = false;
+
+let iU7 = 0;
+let iU7_purchased = false;
+
+let upgradesBought = 0;
+
+// Number formatting function
+function formatNumber(num) {
+  if (num < 1000) return num.toFixed(2); // Less than 1,000, show full number with two decimals
+  if (num < 1e6) return (num / 1e3).toFixed(2) + "k"; // Thousands
+  if (num < 1e9) return (num / 1e6).toFixed(2) + "M"; // Millions
+  if (num < 1e12) return (num / 1e9).toFixed(2) + "B"; // Billions
+  if (num < 1e15) return (num / 1e12).toFixed(2) + "T"; // Trillions
+  if (num < 1e18) return (num / 1e15).toFixed(2) + "Qa"; // Quadrillions
+  if (num < 1e21) return (num / 1e18).toFixed(2) + "Qi"; // Quintillions
+  if (num < 1e24) return (num / 1e21).toFixed(2) + "Sx"; // Sextillions
+  if (num < 1e27) return (num / 1e24).toFixed(2) + "Sp"; // Septillions
+  if (num < 1e30) return (num / 1e27).toFixed(2) + "Oc"; // Octillions
+  if (num < 1e33) return (num / 1e30).toFixed(2) + "No"; // Nonillions
+  if (num < 1e36) return (num / 1e33).toFixed(2) + "Dc"; // Decillions
+  // For numbers larger than 1e36:
+  let [coefficient, exponent] = num.toExponential(2).split('e');
+  exponent = parseInt(exponent).toString(); // Remove '+' from exponent if present
+  return `${parseFloat(coefficient).toFixed(2)}e${exponent}`;
+}
 
 // "Get more" button
 function getMoreBalls() {
-  let currentCount = parseFloat(ballCount.textContent);
-  ballCount.textContent =  currentCount + 1;
-};
+  ballCount += 1;
+  updateBallCountDisplay();
+}
 
-// Tab functionality
-const tabs = document.querySelectorAll("[data-tab-target]");
+// Universal tab functionality
+const universalTabs = document.querySelectorAll("[data-tab-target]");
 const tabContents = document.querySelectorAll("[data-tab-content]");
 
-tabs.forEach(tab => {
+universalTabs.forEach(tab => {
   tab.addEventListener("click", () => {
     const target = document.querySelector(tab.dataset.tabTarget);
 
     // Remove active class from all tabs and tab contents
-    tabs.forEach(t => t.classList.remove("active"));
+    universalTabs.forEach(t => t.classList.remove("active"));
     tabContents.forEach(tabContent => {
       tabContent.classList.remove("active");
     });
@@ -27,207 +70,355 @@ tabs.forEach(tab => {
   });
 });
 
-// Balls per second
-let ballsPerSecond = 0;
-let baseBPS = 0;
-let multiBPS = 0;
-let expBPS = 0;
+// Upgrade tabs functionality
+const upgradesTabs = document.querySelectorAll("[data-upgrades-target]");
+const upgradesTabContents = document.querySelectorAll("[data-upgrades-content]");
 
-function recalculateBPS() {
-    ballsPerSecond = (baseBPS * (1 + multiBPS)) ** (1 + expBPS);
-};
+upgradesTabs.forEach(tab => {
+  tab.addEventListener("click", () => {
+    const target = document.querySelector(tab.dataset.upgradesTarget);
 
-function ballsPerSecondFunction() {
-  let currentCount = parseFloat(ballCount.textContent);
-  ballCount.textContent = (currentCount + ballsPerSecond).toFixed(2);
+    // Remove active class from all tabs and tab contents
+    upgradesTabs.forEach(t => t.classList.remove("active"));
+    upgradesTabContents.forEach(tabContent => {
+      tabContent.classList.remove("active");
+    });
+
+    // Add active class to the clicked tab and its content
+    tab.classList.add("active");
+    target.classList.add("active");
+  });
+});
+
+// Update the DISPLAYED ball count
+function updateBallCountDisplay() {
+    ballCountElement.textContent = formatNumber(ballCount);
+  }
+
+// Update values and their displayed values
+function updateValues() {
+
+  ballCount += ballsPerSecond; // update the actual ball count
+  updateBallCountDisplay(); // update the displayed ball count
+
+  // iU2 upgrade stuff
+  if (iU2_purchased) {
+    iU2 = Math.floor(Math.log10(1 + ballCount));
+  }
+
+  // iU5 upgrade stuff
+  if (iU5_purchased) {
+    iU5 = Math.floor(Math.log10(1 + ballCount));
+  }
+
+  // iU7 upgrade stuff
+  if (iU7_purchased) {
+    iU7 = upgradesBought * 0.01;
+  }
+
+  // Recalculate BPS
+  ballsPerSecond = (((baseBPS + iU2) * iU3 ) /* <- base */ * (1 + (multiBPS + iU5) * iU1_6) /* <- multi */ ) ** (1 + (expBPS + iU7)) /* <- exp */;
 
   let perSecondCount1 = document.querySelector(".perSecondCount-1");
-  perSecondCount1.textContent = ballsPerSecond.toFixed(2); // BPS counter next to balls
+  perSecondCount1.textContent = formatNumber(ballsPerSecond); // displayed value update
+
+  // stats BPS variables
+  let statsBallsPerSecond = ballsPerSecond;
+  let statsBaseBPS = (baseBPS + iU2) * iU3;
+  let statsMultiBPS = (multiBPS + iU5) * iU1_6;
+  let statsExpBPS = (expBPS + iU7);
 
   let perSecondCount2 = document.querySelector(".perSecondCount-2");
-  perSecondCount2.textContent = ballsPerSecond.toFixed(2); // BPS in settings
+  perSecondCount2.textContent = formatNumber(statsBallsPerSecond); // displayed value update
 
   let baseCount = document.querySelector(".baseCount");
-  baseCount.textContent = baseBPS.toFixed(2); // base in settings
+  baseCount.textContent = formatNumber(statsBaseBPS); // displayed value update
 
   let multiCount = document.querySelector(".multiCount");
-  multiCount.textContent = multiBPS.toFixed(2); // multi in settings
+  multiCount.textContent = formatNumber(statsMultiBPS); // displayed value update
 
   let expCount = document.querySelector(".expCount");
-  expCount.textContent = expBPS.toFixed(2); // exp in settings
-};
+  expCount.textContent = formatNumber(statsExpBPS); // displayed value update
+}
 
-function ballsPerSecondLoop() {
-  setInterval(ballsPerSecondFunction, 1000);
-};
+function gameLoop() {
+  setInterval(updateValues, 1000);
+}
 
 window.onload = function() {
-  ballsPerSecondLoop();
+  gameLoop();
 };
-
-// Update the balls per second display
-
 
 // Upgrades
 function upgrade1() {
-  let currentCount = parseFloat(ballCount.textContent);
-  if (currentCount >= 10) { // only allows you to buy the upgrade if you have 10 or more balls
+  if (ballCount >= 10) {
+    ballCount -= 10; // update actual ball count
+    baseBPS += 1;
+    upgradesBought += 1;
 
-    ballCount.textContent = currentCount - 10; // subtracts 10 balls (the cost)
-    baseBPS = baseBPS + 1; // increases base BPS by 1
-    recalculateBPS(); // recalculates BPS
+    document.getElementById("upgrade1").onclick = null;
+    document.getElementById("upgrade1").classList.add("disabled");
 
-    document.getElementById("ballUpgrade1").onclick = null; // makes it so it can only be used once
-    document.getElementById("ballUpgrade1").classList.add("disabled"); // add "disabled" class to the button
-  };
-};
+    updateBallCountDisplay(); // update displayed ball count
+  }
+}
 
 function upgrade2() {
-  let currentCount = parseFloat(ballCount.textContent);
-  if (currentCount >= 25) {
+  if (ballCount >= 25) {
+    ballCount -= 25;
+    baseBPS += 0.5;
+    upgradesBought += 1;
 
-    ballCount.textContent = currentCount - 25;
-    baseBPS = baseBPS + 0.5;
-    recalculateBPS();
+    document.getElementById("upgrade2").onclick = null;
+    document.getElementById("upgrade2").classList.add("disabled");
 
-    document.getElementById("ballUpgrade2").onclick = null;
-    document.getElementById("ballUpgrade2").classList.add("disabled");
-  };
-};
+    updateBallCountDisplay();
+  }
+}
 
 function upgrade3() {
-  let currentCount = parseFloat(ballCount.textContent);
-  if (currentCount >= 50) {
+  if (ballCount >= 50) {
+    ballCount -= 50;
+    multiBPS += 1;
+    upgradesBought += 1;
 
-    ballCount.textContent = currentCount - 50;
-    multiBPS = multiBPS + 1;
-    recalculateBPS();
+    document.getElementById("upgrade3").onclick = null;
+    document.getElementById("upgrade3").classList.add("disabled");
 
-    document.getElementById("ballUpgrade3").onclick = null;
-    document.getElementById("ballUpgrade3").classList.add("disabled");
-  };
-};
+    updateBallCountDisplay();
+  }
+}
 
 function upgrade4() {
-  let currentCount = parseFloat(ballCount.textContent);
-  if (currentCount >= 100) {
+  if (ballCount >= 100) {
+    ballCount -= 100;
+    baseBPS += 2;
+    upgradesBought += 1;
 
-    ballCount.textContent = currentCount - 100;
-    baseBPS = baseBPS + 2;
-    recalculateBPS();
+    document.getElementById("upgrade4").onclick = null;
+    document.getElementById("upgrade4").classList.add("disabled");
 
-    document.getElementById("ballUpgrade4").onclick = null;
-    document.getElementById("ballUpgrade4").classList.add("disabled");
-  };
-};
+    updateBallCountDisplay();
+  }
+}
 
 function upgrade5() {
-  let currentCount = parseFloat(ballCount.textContent);
-  if (currentCount >= 250) {
+  if (ballCount >= 250) {
+    ballCount -= 250;
+    multiBPS += 1.5;
+    upgradesBought += 1;
 
-    ballCount.textContent = currentCount - 250;
-    multiBPS = multiBPS + 1.5;
-    recalculateBPS();
+    document.getElementById("upgrade5").onclick = null;
+    document.getElementById("upgrade5").classList.add("disabled");
 
-    document.getElementById("ballUpgrade5").onclick = null;
-    document.getElementById("ballUpgrade5").classList.add("disabled");
-  };
-};
+    updateBallCountDisplay();
+  }
+}
 
 function upgrade6() {
-  let currentCount = parseFloat(ballCount.textContent);
-  if (currentCount >= 350) {
+  if (ballCount >= 350) {
+    ballCount -= 350;
+    expBPS += 0.1;
+    upgradesBought += 1;
 
-    ballCount.textContent = currentCount - 350;
-    expBPS = expBPS + 0.1;
-    recalculateBPS();
+    document.getElementById("upgrade6").onclick = null;
+    document.getElementById("upgrade6").classList.add("disabled");
 
-    document.getElementById("ballUpgrade6").onclick = null;
-    document.getElementById("ballUpgrade6").classList.add("disabled");
-  };
-};
+    updateBallCountDisplay();
+  }
+}
 
 function upgrade7() {
-  let currentCount = parseFloat(ballCount.textContent);
-  if (currentCount >= 500) {
+  if (ballCount >= 500) {
+    ballCount -= 500;
+    baseBPS += 2;
+    upgradesBought += 1;
 
-    ballCount.textContent = currentCount - 500;
-    baseBPS = baseBPS + 2;
-    recalculateBPS();
+    document.getElementById("upgrade7").onclick = null;
+    document.getElementById("upgrade7").classList.add("disabled");
 
-    document.getElementById("ballUpgrade7").onclick = null;
-    document.getElementById("ballUpgrade7").classList.add("disabled");
-  };
-};
+    updateBallCountDisplay();
+  }
+}
 
 function upgrade8() {
-  let currentCount = parseFloat(ballCount.textContent);
-  if (currentCount >= 750) {
+  if (ballCount >= 750) {
+    ballCount -= 750;
+    multiBPS += 1.5;
+    upgradesBought += 1;
 
-    ballCount.textContent = currentCount - 750;
-    multiBPS = multiBPS + 1.5;
-    recalculateBPS();
+    document.getElementById("upgrade8").onclick = null;
+    document.getElementById("upgrade8").classList.add("disabled");
 
-    document.getElementById("ballUpgrade8").onclick = null;
-    document.getElementById("ballUpgrade8").classList.add("disabled");
-  };
-};
+    updateBallCountDisplay();
+  }
+}
 
 function upgrade9() {
-  let currentCount = parseFloat(ballCount.textContent);
-  if (currentCount >= 1000) {
+  if (ballCount >= 1000) {
+    ballCount -= 1000;
+    baseBPS += 3;
+    upgradesBought += 1;
 
-    ballCount.textContent = currentCount - 1000;
-    baseBPS = baseBPS + 3;
-    recalculateBPS();
+    document.getElementById("upgrade9").onclick = null;
+    document.getElementById("upgrade9").classList.add("disabled");
 
-    document.getElementById("ballUpgrade9").onclick = null;
-    document.getElementById("ballUpgrade9").classList.add("disabled");
-  };
-};
+    updateBallCountDisplay();
+  }
+}
 
 function upgrade10() {
-  let currentCount = parseFloat(ballCount.textContent);
-  if (currentCount >= 2500) {
+  if (ballCount >= 2500) {
+    ballCount -= 2500;
+    expBPS += 0.1;
+    upgradesBought += 1;
 
-    ballCount.textContent = currentCount - 2500;
-    expBPS = expBPS + 0.1;
-    recalculateBPS();
+    document.getElementById("upgrade10").onclick = null;
+    document.getElementById("upgrade10").classList.add("disabled");
 
-    document.getElementById("ballUpgrade10").onclick = null;
-    document.getElementById("ballUpgrade10").classList.add("disabled");
-  };
-};
+    updateBallCountDisplay();
+  }
+}
 
 function upgrade11() {
-  let currentCount = parseFloat(ballCount.textContent);
-  if (currentCount >= 3500) {
+  if (ballCount >= 3500) {
+    ballCount -= 3500;
+    multiBPS += 2;
+    upgradesBought += 1;
 
-    ballCount.textContent = currentCount - 3500;
-    multiBPS = multiBPS + 2;
-    recalculateBPS();
+    document.getElementById("upgrade11").onclick = null;
+    document.getElementById("upgrade11").classList.add("disabled");
 
-    document.getElementById("ballUpgrade11").onclick = null;
-    document.getElementById("ballUpgrade11").classList.add("disabled");
-  };
-};
+    updateBallCountDisplay();
+  }
+}
 
-function upgrade12() {
-  let currentCount = parseFloat(ballCount.textContent);
-  if (currentCount >= 10000) {
+function upgrade12() { // this one unlocks Intermediate Upgrades
+  if (ballCount >= 10000) {
+    ballCount -= 10000;
+    upgradesBought += 1;
 
-    ballCount.textContent = currentCount - 10000;
-    baseBPS = baseBPS + 500000;
-    recalculateBPS();
+    document.getElementById("upgrade12").onclick = null;
+    document.getElementById("upgrade12").classList.add("disabled");
 
-    document.getElementById("ballUpgrade12").onclick = null;
-    document.getElementById("ballUpgrade12").classList.add("disabled");
-  };
-};
+    updateBallCountDisplay();
+
+    // Unlock Intermediate Upgrades Tab Buttons
+    document.querySelectorAll('.upgradesTabButtons').forEach(button => {
+      button.classList.add('activeButton');
+    });
+  }
+}
+
+function intermediateUpgrade1() {
+  if (ballCount >= 2500) {
+    ballCount -= 2500;
+    iU1_6 *= 1.5;
+    upgradesBought += 1;
+
+    document.getElementById("intermediateUpgrade1").onclick = null;
+    document.getElementById("intermediateUpgrade1").classList.add("disabled");
+
+    updateBallCountDisplay();
+  }
+}
+
+function intermediateUpgrade2() {
+  if (ballCount >= 25000) {
+    ballCount -= 25000;
+    upgradesBought += 1;
+
+    document.getElementById("intermediateUpgrade2").onclick = null;
+    document.getElementById("intermediateUpgrade2").classList.add("disabled");
+
+    iU2_purchased = true;
+
+    updateBallCountDisplay();
+  }
+}
+
+function intermediateUpgrade3() {
+  if (ballCount >= 35000) {
+    ballCount -= 35000;
+    iU3 *= 2;
+    upgradesBought += 1;
+
+    document.getElementById("intermediateUpgrade3").onclick = null;
+    document.getElementById("intermediateUpgrade3").classList.add("disabled");
+
+    updateBallCountDisplay();
+  }
+}
+
+function intermediateUpgrade4() {
+  if (ballCount >= 100000) {
+    ballCount -= 100000;
+    expBPS += 0.1;
+    upgradesBought += 1;
+
+    document.getElementById("intermediateUpgrade4").onclick = null;
+    document.getElementById("intermediateUpgrade4").classList.add("disabled");
+
+    updateBallCountDisplay();
+  }
+}
+
+function intermediateUpgrade5() {
+  if (ballCount >= 300000) {
+    ballCount -= 300000;
+    upgradesBought += 1;
+
+    document.getElementById("intermediateUpgrade5").onclick = null;
+    document.getElementById("intermediateUpgrade5").classList.add("disabled");
+
+    iU5_purchased = true;
+
+    updateBallCountDisplay();
+  }
+}
+
+function intermediateUpgrade6() {
+  if (ballCount >= 500000) {
+    ballCount -= 500000;
+    iU1_6 *= 1.5;
+    upgradesBought += 1;
+
+    document.getElementById("intermediateUpgrade6").onclick = null;
+    document.getElementById("intermediateUpgrade6").classList.add("disabled");
+
+    updateBallCountDisplay();
+  }
+}
+
+function intermediateUpgrade7() {
+  if (ballCount >= 750000) {
+    ballCount -= 750000;
+    upgradesBought += 1;
+
+    document.getElementById("intermediateUpgrade7").onclick = null;
+    document.getElementById("intermediateUpgrade7").classList.add("disabled");
+
+    iU7_purchased = true;
+
+    updateBallCountDisplay();
+  }
+}
+
+function intermediateUpgrade8() {
+  if (ballCount >= 2.5e6) {
+    ballCount -= 2.5e6;
+    upgradesBought += 1;
+
+    document.getElementById("intermediateUpgrade8").onclick = null;
+    document.getElementById("intermediateUpgrade8").classList.add("disabled");
+
+    updateBallCountDisplay();
+  }
+}
 
 // Settings
 
 // Kill yourself
 function refreshPage() {
-    location.reload();
+  location.reload();
 }
