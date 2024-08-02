@@ -21,7 +21,7 @@
 
     <!-- Ball count -->
     <p class="textCenterHorizontal">
-      You have <span id="ballCount">0</span> balls (<span class="perSecondCount-1">0</span>/s)
+      You have <span id="ballCount">0.00</span> balls (<span class="perSecondCount-1">0.00</span>/s)
     </p>
     
     <!-- Ball clicker -->
@@ -41,73 +41,142 @@
 
       <!-- Upgrades Tab -->
       <div id="tab-upgrades" data-tab-content class="active">
-        <p class="textCenterHorizontal upgradesTitle">Upgrades</p>
+
+        <!-- Basic upgrades container -->
+        <div id="upgrades-basic" data-upgrades-content class="active">
+
+          <p class="textCenterHorizontal upgradesTitle">Basic Upgrades</p>
 
         <!-- Upgrade buttons -->
-        <div class="upgradeButtonsGroup">
+          <div class="upgradeButtonsGroup">
 
-          <button type="button" class="centerHorizontal ballButtons upgradeButtons" id="ballUpgrade1" onclick="upgrade1()">
-            <span class="upgradeDescription">Increase base BPS by 1</span>
-            <span class="upgradeCost">Cost: 10 balls</span>
-          </button>
+            <button type="button" class="centerHorizontal ballButtons upgradeButtons" id="upgrade1" onclick="upgrade1()">
+              <span class="upgradeDescription">Increase base BPS by 1</span>
+              <span class="upgradeCost">Cost: 10 balls</span>
+            </button>
 
-          <button type="button" class="centerHorizontal ballButtons upgradeButtons" id="ballUpgrade2" onclick="upgrade2()">
-            <span class="upgradeDescription">Increase base BPS by 0.5</span>
-            <span class="upgradeCost">Cost: 25 balls</span>
-          </button>
+            <button type="button" class="centerHorizontal ballButtons upgradeButtons" id="upgrade2" onclick="upgrade2()">
+              <span class="upgradeDescription">Increase base BPS by 0.5</span>
+              <span class="upgradeCost">Cost: 25 balls</span>
+            </button>
 
-          <button type="button" class="centerHorizontal ballButtons upgradeButtons" id="ballUpgrade3" onclick="upgrade3()">
-            <span class="upgradeDescription">Increase BPS multiplier by 1</span>
-            <span class="upgradeCost">Cost: 50 balls</span>
-          </button>
+            <button type="button" class="centerHorizontal ballButtons upgradeButtons" id="upgrade3" onclick="upgrade3()">
+              <span class="upgradeDescription">Increase BPS multiplier by 1</span>
+              <span class="upgradeCost">Cost: 50 balls</span>
+            </button>
 
-          <button type="button" class="centerHorizontal ballButtons upgradeButtons" id="ballUpgrade4" onclick="upgrade4()">
-            <span class="upgradeDescription">Increase base BPS by 2</span>
-            <span class="upgradeCost">Cost: 100 balls</span>
-          </button>
+            <button type="button" class="centerHorizontal ballButtons upgradeButtons" id="upgrade4" onclick="upgrade4()">
+              <span class="upgradeDescription">Increase base BPS by 2</span>
+              <span class="upgradeCost">Cost: 100 balls</span>
+            </button>
 
-          <button type="button" class="centerHorizontal ballButtons upgradeButtons" id="ballUpgrade5" onclick="upgrade5()">
-            <span class="upgradeDescription">Increase BPS multi by 1.5</span>
-            <span class="upgradeCost">Cost: 250 balls</span>
-          </button>
+            <button type="button" class="centerHorizontal ballButtons upgradeButtons" id="upgrade5" onclick="upgrade5()">
+              <span class="upgradeDescription">Increase BPS multi by 1.5</span>
+              <span class="upgradeCost">Cost: 250 balls</span>
+            </button>
 
-          <button type="button" class="centerHorizontal ballButtons upgradeButtons" id="ballUpgrade6" onclick="upgrade6()">
-            <span class="upgradeDescription">Increase BPS exponent by 0.1</span>
-            <span class="upgradeCost">Cost: 350 balls</span>
-          </button>
+            <button type="button" class="centerHorizontal ballButtons upgradeButtons" id="upgrade6" onclick="upgrade6()">
+              <span class="upgradeDescription">Increase BPS exponent by 0.1</span>
+              <span class="upgradeCost">Cost: 350 balls</span>
+            </button>
 
-          <button type="button" class="centerHorizontal ballButtons upgradeButtons" id="ballUpgrade7" onclick="upgrade7()">
-            <span class="upgradeDescription">Increase base BPS by 2</span>
-            <span class="upgradeCost">Cost: 500 balls</span>
-          </button>
+            <button type="button" class="centerHorizontal ballButtons upgradeButtons" id="upgrade7" onclick="upgrade7()">
+              <span class="upgradeDescription">Increase base BPS by 2</span>
+              <span class="upgradeCost">Cost: 500 balls</span>
+            </button>
 
-          <button type="button" class="centerHorizontal ballButtons upgradeButtons" id="ballUpgrade8" onclick="upgrade8()">
-            <span class="upgradeDescription">Increase BPS multi by 1.5</span>
-            <span class="upgradeCost">Cost: 750 balls</span>
-          </button>
+            <button type="button" class="centerHorizontal ballButtons upgradeButtons" id="upgrade8" onclick="upgrade8()">
+              <span class="upgradeDescription">Increase BPS multi by 1.5</span>
+              <span class="upgradeCost">Cost: 750 balls</span>
+            </button>
 
-          <button type="button" class="centerHorizontal ballButtons upgradeButtons" id="ballUpgrade9" onclick="upgrade9()">
-            <span class="upgradeDescription">Increase base BPS by 3</span>
-            <span class="upgradeCost">Cost: 1000 balls</span>
-          </button>
+            <button type="button" class="centerHorizontal ballButtons upgradeButtons" id="upgrade9" onclick="upgrade9()">
+              <span class="upgradeDescription">Increase base BPS by 3</span>
+              <span class="upgradeCost">Cost: 1k balls</span>
+            </button>
 
-          <button type="button" class="centerHorizontal ballButtons upgradeButtons" id="ballUpgrade10" onclick="upgrade10()">
-            <span class="upgradeDescription">Increase BPS exponent by 0.1</span>
-            <span class="upgradeCost">Cost: 2500 balls</span>
-          </button>
+            <button type="button" class="centerHorizontal ballButtons upgradeButtons" id="upgrade10" onclick="upgrade10()">
+              <span class="upgradeDescription">Increase BPS exponent by 0.1</span>
+              <span class="upgradeCost">Cost: 2.5k balls</span>
+            </button>
 
-          <button type="button" class="centerHorizontal ballButtons upgradeButtons" id="ballUpgrade11" onclick="upgrade11()">
-            <span class="upgradeDescription">Increase BPS multi by 2</span>
-            <span class="upgradeCost">Cost: 3500 balls</span>
-          </button>
+            <button type="button" class="centerHorizontal ballButtons upgradeButtons" id="upgrade11" onclick="upgrade11()">
+              <span class="upgradeDescription">Increase BPS multi by 2</span>
+              <span class="upgradeCost">Cost: 3.5k balls</span>
+            </button>
 
-          <button type="button" class="centerHorizontal ballButtons upgradeButtons" id="ballUpgrade12" onclick="upgrade12()">
-            <span class="upgradeDescription">Unlock <strong>Intermediate Upgrades</strong></span>
-            <span class="upgradeCost">Cost: 10000 balls</span>
-          </button>
+            <button type="button" class="centerHorizontal ballButtons upgradeButtons" id="upgrade12" onclick="upgrade12()">
+              <span class="upgradeDescription">Unlock <strong>Intermediate Upgrades</strong></span>
+              <span class="upgradeCost">Cost: 10k balls</span>
+            </button>
 
+          </div>
+        </div>
+
+        <!-- Intermediate upgrades container -->
+        <div id="upgrades-intermediate" data-upgrades-content>
+
+          <p class="textCenterHorizontal upgradesTitle">Intermediate Upgrades</p>
+
+          <div class="intermediateUpgradeButtonsGroup">
+
+            <button type="button" class="centerHorizontal ballButtons upgradeButtons intermediateUpgradeButtons"
+            id="intermediateUpgrade1" onclick="intermediateUpgrade1()">
+              <span class="upgradeDescription">Multiply BPS multi by 1.5</span>
+              <span class="upgradeCost">Cost: 2.5k balls</span>
+            </button>
+
+            <button type="button" class="centerHorizontal ballButtons upgradeButtons intermediateUpgradeButtons"
+            id="intermediateUpgrade2" onclick="intermediateUpgrade2()">
+              <span class="upgradeDescription">increase base BPS by floor(log(balls+1))</span>
+              <span class="upgradeCost">Cost: 25k balls</span>
+            </button>
+
+            <button type="button" class="centerHorizontal ballButtons upgradeButtons intermediateUpgradeButtons"
+            id="intermediateUpgrade3" onclick="intermediateUpgrade3()">
+              <span class="upgradeDescription">Multiply base BPS by 2</span>
+              <span class="upgradeCost">Cost: 35k balls</span>
+            </button>
+
+            <button type="button" class="centerHorizontal ballButtons upgradeButtons intermediateUpgradeButtons"
+            id="intermediateUpgrade4" onclick="intermediateUpgrade4()">
+              <span class="upgradeDescription">Increase BPS exponent by 0.1</span>
+              <span class="upgradeCost">Cost: 100k balls</span>
+            </button>
+
+            <button type="button" class="centerHorizontal ballButtons upgradeButtons intermediateUpgradeButtons"
+            id="intermediateUpgrade5" onclick="intermediateUpgrade5()">
+              <span class="upgradeDescription">Increase BPS multi by floor(log(balls+1))</span>
+              <span class="upgradeCost">Cost: 300k balls</span>
+            </button>
+
+            <button type="button" class="centerHorizontal ballButtons upgradeButtons intermediateUpgradeButtons"
+            id="intermediateUpgrade6" onclick="intermediateUpgrade6()">
+              <span class="upgradeDescription">Multiply BPS multi by 1.5</span>
+              <span class="upgradeCost">Cost: 500k balls</span>
+            </button>
+
+            <button type="button" class="centerHorizontal ballButtons upgradeButtons intermediateUpgradeButtons"
+            id="intermediateUpgrade7" onclick="intermediateUpgrade7()">
+              <span class="upgradeDescription">Increase BPS exp by (upgsBought*0.01)</span>
+              <span class="upgradeCost">Cost: 750k balls</span>
+            </button>
+
+            <button type="button" class="centerHorizontal ballButtons upgradeButtons intermediateUpgradeButtons"
+            id="intermediateUpgrade8" onclick="intermediateUpgrade8()">
+              <span class="upgradeDescription">Unlock <strong>Milestones</strong></span>
+              <span class="upgradeCost">Cost: 2.5M balls</span>
+            </button>
+
+          </div>
 
         </div>
+
+        <div class="upgrades-tabs">
+          <button data-upgrades-target="#upgrades-basic" type="button" class="upgradesTabButtonsDefault upgradesTabButtons" id="basicUpgradesTab">Basic</button>
+          <button data-upgrades-target="#upgrades-intermediate" type="button" class="upgradesTabButtonsDefault upgradesTabButtons intermediateUpgradeButtons" id="intermediateUpgradesTab">Intermediate</button>
+        </div>
+
       </div>
 
       <!-- Settings Tab -->
@@ -115,7 +184,7 @@
 
         <div class="settingsGroup">
 
-          <div>
+          <div class="settingsContainer">
             <p class="textCenterHorizontal settingsTitle">Settings</p>
 
             <div class="settingsButtonsGroup">
@@ -135,7 +204,7 @@
             </div>
           </div>
 
-          <div>
+          <div class="statsContainer">
             <p class="textCenterHorizontal settingsTitle">Stats</p>
 
             <div class="statsGroup">
