@@ -146,6 +146,33 @@ button:hover {
   border: 4px solid rgb(0, 66, 137);
 }
 
+#milestonesTab {
+  display: none;
+}
+
+/* Milestones tab design */
+#milestonesTab.activeTab {
+  display: block;
+  background-color: transparent;
+  border: 4px solid rgb(255, 183, 0);
+  border-radius: 12px;
+  color: rgb(255, 183, 0);
+  right: 140px;
+  text-align: center;
+  font-size: 32px;
+  font-family: "Roboto Mono";
+}
+
+#milestonesTab.activeTab:hover {
+  background-color: rgb(94, 68, 0);
+}
+
+#milestonesTab.activeTab:active {
+  background-color: rgb(37, 26, 0);
+  color: rgb(146, 105, 0);
+  border: 4px solid rgb(146, 105, 0);
+}
+
 /* Settings tab design */
 #settingsTab {
   background-color: transparent;
@@ -197,13 +224,18 @@ button:hover {
   display: block;
 }
 
-/* How upgrade button tabs look initially (before they are unlocked) */
-.upgradesTabButtons.upgradesTabButtonsDefault {
-  display: none;
-}
+/* Unlocking upgrades tab buttons */
+  .upgradesTabButtons.upgradesTabButtonsDefault {
+    display: none;
+  }
 
-.upgradesTabButtons.upgradesTabButtonsDefault.activeButton {
-  display: block;
+  .upgradesTabButtons.upgradesTabButtonsDefault.activeUpgradeTab {
+    display: block;
+  }
+
+/* Upgrade tabs that arent unlocked yet */
+.upgradesTabButtons.upgradesTabButtonsDefault.hiddenUpgradesTab {
+  display: none;
 }
 
 .upgrades-tabs {
@@ -247,6 +279,12 @@ button:hover {
   color:rgb(164, 164, 164);
   font-size: 36px;
   margin-top: 20px;
+}
+
+/* General milestones title text design */
+.milestonesTitle {
+  color:rgb(164, 164, 164);
+  font-size: 36px;
 }
 
 /* General settings title text design */
@@ -310,6 +348,7 @@ button:hover {
   margin-bottom: 10px;
 }
 
+/* INTERMEDIATE UPGRADES */
 /* General intermediate upgrade button design */
 .intermediateUpgradeButtonsGroup {
   display: flex;
@@ -327,8 +366,14 @@ button:hover {
   border-radius: 12px;
 }
 
+/* Hidden intermediate upgrade (not unlocked yet)*/
+.intermediateUpgradeButtons.iU-hidden {
+  display: none;
+}
+
 /* Intermediate upgrade button design */
 .intermediateUpgradeButtons {
+  display: block;
   color: rgb(0, 191, 255);
   border: 4px solid rgb(0, 191, 255);
 }
@@ -349,6 +394,304 @@ button:hover {
   color: rgb(0, 103, 138);
   border: 4px solid rgb(0, 103, 138);
 }
+
+.upgradesTabButtonsSeparator.inactive {
+  display: none;
+}
+
+.upgradesTabButtonsSeparator {
+  display: block;
+  width: 100px;
+}
+
+/* ADVANCED UPGRADES */
+/* General advanced upgrade button design */
+.advancedUpgradeButtonsGroup {
+  display: flex;
+  flex-wrap: wrap;
+  width: 1050px;
+  height: 490px;
+  justify-content: center;
+  align-content: flex-start;
+  column-gap: 10px;
+  row-gap: 0px;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  border: 4px solid rgb(108, 108, 108);
+  border-radius: 12px;
+}
+
+/* Advanced upgrade button design */
+.advancedUpgradeButtons {
+  display: block;
+  color: rgb(0, 255, 204);
+  border: 4px solid rgb(0, 255, 204);
+}
+
+.advancedUpgradeButtons:hover {
+  background-color: rgb(0, 87, 70);
+}
+
+.advancedUpgradeButtons:active {
+  background-color: rgb(0, 36, 29);
+  color: rgb(0, 138, 110);
+  border: 4px solid rgb(0, 138, 110);
+}
+
+/* Disabled advanced upgrade button design */
+.advancedUpgradeButtons.disabled {
+  background-color: transparent;
+  color: rgb(0, 138, 110);
+  border: 4px solid rgb(0, 138, 110);
+}
+
+/* BUYABLES */
+/* General buyable button design */
+.buyablesUpgradeButtonsGroup {
+  display: flex;
+  flex-wrap: wrap;
+  width: 1050px;
+  height: 490px;
+  justify-content: center;
+  align-content: flex-start;
+  column-gap: 10px;
+  row-gap: 0px;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  border: 4px solid rgb(108, 108, 108);
+  border-radius: 12px;
+}
+
+/* Buyables upgrade button design */
+.buyablesUpgradeButtons {
+  display: block;
+  color: rgb(183, 128, 255);
+  border: 4px solid rgb(183, 128, 255);
+}
+
+.buyablesUpgradeButtons:hover {
+  background-color: rgb(69, 47, 97);
+}
+
+.buyablesUpgradeButtons:active {
+  background-color: rgb(27, 19, 39);
+  color: rgb(108, 75, 151);
+  border: 4px solid rgb(108, 75, 151);
+}
+
+/* Disabled buyable upgrade button design */
+.buyablesUpgradeButtons.disabled {
+  background-color: transparent;
+  color: rgb(108, 75, 151);
+  border: 4px solid rgb(108, 75, 151);
+}
+
+/* MILESTONE STUFF */
+
+.milestonesOuterGroup {
+  display: flex;
+  flex-wrap: wrap;
+  width: 90%;
+  height: 640px;
+  justify-content: center;
+  align-content: flex-start;
+  align-items: center;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+}
+  .milestonesLeftArrow {
+    display: flex;
+    flex-wrap: wrap;
+    width: 80px;
+    height: 80px;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+    border: 4px solid rgb(108, 108, 108);
+    border-radius: 100%;
+  }
+
+  .milestonesInnerGroup {
+    display: flex;
+    flex-wrap: wrap;
+    width: 1400px;
+    height: 100%;
+    justify-content: center;
+    align-content: flex-start;
+    align-items: center;
+    column-gap: 40px;
+    row-gap: 0px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .milestonesRightArrow {
+    display: flex;
+    flex-wrap: wrap;
+    width: 80px;
+    height: 80px;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+    border: 4px solid rgb(108, 108, 108);
+    border-radius: 100%;
+  }
+
+.milestoneArrow {
+  font-size: 48px;
+  user-select: none;
+}
+
+.milestonesCapsuleContainer {
+  display: flex;
+  flex-wrap: wrap;
+  width: 1500px;
+  height: 500px;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/*
+                  <div class="milestoneCapsuleRewardSector"> <p class="milestoneCapsuleReward">Unlock 2 new upgrades</p> </div>
+                  <div class="milestoneCapsuleInnerSeparator"></div>
+                  <div class="milestoneCapsuleRequirementSector"> <p class="milestoneCapsuleRequirement">Get 1M balls</p> </div>
+*/
+
+/* Milestone capsule stuff */
+.milestonesCapsule {
+  width: 300px;
+  height: 400px;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-left: auto;
+  margin-right: auto;
+  border: 4px solid rgb(108, 108, 108);
+  border-radius: 24px;
+}
+
+  /* [if milestone achieved] */
+.milestonesCapsule.milestoneAchieved {
+  width: 300px;
+  height: 400px;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-left: auto;
+  margin-right: auto;
+  border: 4px solid rgb(255, 183, 0);
+  border-radius: 24px;
+  box-shadow: 0px 0px 10px 0px rgb(255, 183, 0);
+}
+
+  .milestoneCapsuleTitle {
+    position: relative;
+    top: 5%;
+    text-align: center;
+    font-size: 36px;
+  }
+
+  /* [if milestone achieved] */
+  .milestoneAchieved .milestoneCapsuleTitle {
+    position: relative;
+    top: 5%;
+    text-align: center;
+    font-size: 36px;
+    color: rgb(255, 183, 0);
+  }
+
+  .capsuleSeparator {
+    position: relative;
+    top: 10%;
+    width: 100%;
+    border: 2px solid rgb(108, 108, 108);
+  }
+
+    /* [if milestone achieved] */
+  .milestoneAchieved .capsuleSeparator {
+    position: relative;
+    top: 10%;
+    width: 100%;
+    border: 2px solid rgb(255, 183, 0);
+  }
+
+  .milestoneCapsuleFlex {
+    display: flex;
+    position: relative;
+    top: 10%;
+    width: 100%;
+    height: 76%;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+    .milestoneCapsuleRewardSector {
+      display: flex;
+      position: relative;
+      width: 90%;
+      height: 100%;
+      justify-content: center;
+      align-items: center; 
+    }
+      .milestoneCapsuleReward {
+        text-align: center;
+        font-size: 24px;
+      }
+
+      /* [if milestone achieved] */
+      .milestoneAchieved .milestoneCapsuleReward {
+        text-align: center;
+        font-size: 24px;
+        color: rgb(255, 183, 0);
+      }
+
+    .milestoneCapsuleInnerSeparator {
+      width: 70%;
+      border: 2px solid rgb(45, 45, 45);
+      align-self: center;
+    }
+
+    /* [if milestone achieved] */
+    .milestoneAchieved .milestoneCapsuleInnerSeparator {
+      width: 70%;
+      border: 2px solid rgb(101, 73, 0);
+      align-self: center;
+    }
+    
+    .milestoneCapsuleRequirementSector {
+      display: flex;
+      position: relative;
+      width: 90%;
+      height: 100%;
+      justify-content: center;
+      align-items: center; 
+    }
+      .milestoneCapsuleRequirement {
+        text-align: center;
+        font-size: 24px;
+      }
+
+      /* [if milestone achieved] */
+      .milestoneAchieved .milestoneCapsuleRequirement {
+        text-align: center;
+        font-size: 24px;
+        color: rgb(255, 183, 0);
+      }
+
+
 
 .settingsGroup {
   display: flex;
