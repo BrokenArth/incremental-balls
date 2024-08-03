@@ -118,7 +118,7 @@ function formatNumber(num) {
 
 // "Get more" button
 function getMoreBalls() {
-  ballCount += 5e7;
+  ballCount += 1;
   updateBallCountDisplay();
 }
 
