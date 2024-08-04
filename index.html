@@ -123,13 +123,13 @@
 
             <button type="button" class="centerHorizontal ballButtons upgradeButtons intermediateUpgradeButtons"
             id="intermediateUpgrade1" onclick="intermediateUpgrade1()">
-              <span class="upgradeDescription">Multiply BPS multi by 1.5</span>
+              <span class="upgradeDescription">Multiply BPS multi by <span id="iU1_effect">1.5</span></span>
               <span class="upgradeCost">Cost: 2.5k balls</span>
             </button>
 
             <button type="button" class="centerHorizontal ballButtons upgradeButtons intermediateUpgradeButtons"
             id="intermediateUpgrade2" onclick="intermediateUpgrade2()">
-              <span class="upgradeDescription">increase base BPS by floor(log(1+balls))</span>
+              <span class="upgradeDescription">Increase base BPS by floor(log(1+balls))</span>
               <span class="upgradeCost">Cost: 25k balls</span>
             </button>
 
@@ -148,12 +148,12 @@
             <button type="button" class="centerHorizontal ballButtons upgradeButtons intermediateUpgradeButtons"
             id="intermediateUpgrade5" onclick="intermediateUpgrade5()">
               <span class="upgradeDescription">Increase BPS multi by floor(log(1+balls))</span>
-              <span class="upgradeCost">Cost: 300k balls</span>
+              <span class="upgradeCost">Cost: 200k balls</span>
             </button>
 
             <button type="button" class="centerHorizontal ballButtons upgradeButtons intermediateUpgradeButtons"
             id="intermediateUpgrade6" onclick="intermediateUpgrade6()">
-              <span class="upgradeDescription">Multiply BPS multi by 1.5</span>
+              <span class="upgradeDescription">Multiply BPS multi by <span id="iU6_effect">1.5</span></span>
               <span class="upgradeCost">Cost: 500k balls</span>
             </button>
 
@@ -183,7 +183,7 @@
 
             <button type="button" class="centerHorizontal ballButtons upgradeButtons intermediateUpgradeButtons iU-hidden"
             id="intermediateUpgrade11" onclick="intermediateUpgrade11()">
-              <span class="upgradeDescription">Multiply BPS multi by 1.5</span>
+              <span class="upgradeDescription">Multiply BPS multi by <span id="iU11_effect">1.5</span></span>
               <span class="upgradeCost">Cost: 12M balls</span>
             </button>
 
@@ -205,7 +205,7 @@
 
             <button type="button" class="centerHorizontal ballButtons upgradeButtons advancedUpgradeButtons"
             id="advancedUpgrade1" onclick="advancedUpgrade1()">
-              <span class="upgradeDescription">Multiply upgrades bought counter by 1.2</span>
+              <span class="upgradeDescription">Multiply upgrades bought by 1.2</span>
               <span class="upgradeCost">Cost: 10M balls</span>
             </button>
 
@@ -223,8 +223,78 @@
 
             <button type="button" class="centerHorizontal ballButtons upgradeButtons advancedUpgradeButtons"
             id="advancedUpgrade4" onclick="advancedUpgrade4()">
-              <span class="upgradeDescription">Multiply milestones achieved counter by 1.5</span>
+              <span class="upgradeDescription">Multiply milestones achieved by 1.5</span>
               <span class="upgradeCost">Cost: 1.2B balls</span>
+            </button>
+
+            <button type="button" class="centerHorizontal ballButtons upgradeButtons advancedUpgradeButtons"
+            id="advancedUpgrade5" onclick="advancedUpgrade5()">
+              <span class="upgradeDescription">Multiply base by 1 + sqrt(upgrades)/4</span>
+              <span class="upgradeCost">Cost: 4B balls</span>
+            </button>
+
+            <button type="button" class="centerHorizontal ballButtons upgradeButtons advancedUpgradeButtons"
+            id="advancedUpgrade6" onclick="advancedUpgrade6()">
+              <span class="upgradeDescription">Increase exponent by 0.1</span>
+              <span class="upgradeCost">Cost: 30B balls</span>
+            </button>
+
+            <button type="button" class="centerHorizontal ballButtons upgradeButtons advancedUpgradeButtons"
+            id="advancedUpgrade7" onclick="advancedUpgrade7()">
+              <span class="upgradeDescription">Multiply upgrades bought by 1.2</span>
+              <span class="upgradeCost">Cost: 200B balls</span>
+            </button>
+
+            <button type="button" class="centerHorizontal ballButtons upgradeButtons advancedUpgradeButtons"
+            id="advancedUpgrade8" onclick="advancedUpgrade8()">
+              <span class="upgradeDescription">Multiply multi by 1 + sqrt(milestones)/4</span>
+              <span class="upgradeCost">Cost: 7.5T balls</span>
+            </button>
+
+            <button type="button" class="centerHorizontal ballButtons upgradeButtons advancedUpgradeButtons"
+            id="advancedUpgrade9" onclick="advancedUpgrade9()">
+              <span class="upgradeDescription">Multiply milestones achieved by 1.5</span>
+              <span class="upgradeCost">Cost: 50T balls</span>
+            </button>
+
+            <button type="button" class="centerHorizontal ballButtons upgradeButtons advancedUpgradeButtons"
+            id="advancedUpgrade10" onclick="advancedUpgrade10()">
+              <span class="upgradeDescription">Multiply exponent by 1.05</span>
+              <span class="upgradeCost">Cost: 250T balls</span>
+            </button>
+
+            <button type="button" class="centerHorizontal ballButtons upgradeButtons advancedUpgradeButtons"
+            id="advancedUpgrade11" onclick="advancedUpgrade11()">
+              <span class="upgradeDescription">Multiply base by 1 + cbrt(upgrades)/5</span>
+              <span class="upgradeCost">Cost: 5Qa balls</span>
+            </button>
+
+            <button type="button" class="centerHorizontal ballButtons upgradeButtons advancedUpgradeButtons"
+            id="advancedUpgrade12" onclick="advancedUpgrade12()">
+              <span class="upgradeDescription">Unlock <strong>Expert Upgrades</strong></span>
+              <span class="upgradeCost">Cost: 100Qa balls</span>
+            </button>
+
+          </div>
+
+        </div>
+
+        <div id="upgrades-expert" data-upgrades-content>
+
+          <p class="textCenterHorizontal upgradesTitle">Expert Upgrades</p>
+
+          <div class="expertUpgradeButtonsGroup">
+
+            <button type="button" class="centerHorizontal ballButtons upgradeButtons expertUpgradeButtons"
+            id="expertUpgrade1" onclick="expertUpgrade1()">
+              <span class="upgradeDescription">Raise base by 1.05</span>
+              <span class="upgradeCost">Cost: 50Qa balls</span>
+            </button>
+
+            <button type="button" class="centerHorizontal ballButtons upgradeButtons expertUpgradeButtons"
+            id="expertUpgrade2" onclick="expertUpgrade2()">
+              <span class="upgradeDescription">Raise multi by 1.05</span>
+              <span class="upgradeCost">Cost: 4Qi balls</span>
             </button>
 
           </div>
@@ -241,7 +311,63 @@
             id="buyablesUpgrade1" onclick="buyablesUpgrade1()">
               <span class="upgradeDescription">Increase base BPS by 5</span>
               <span class="upgradeCost">Cost: <span id="buyableCost1">10.00M</span> balls</span>
-              <span class="purchasedCount"><span id="buyableCount1">0</span>/5</span>
+              <span class="purchasedCount"><span id="buyableCount1">0</span>/10</span>
+            </button>
+
+            <button type="button" class="centerHorizontal ballButtons upgradeButtons buyablesUpgradeButtons"
+            id="buyablesUpgrade2" onclick="buyablesUpgrade2()">
+              <span class="upgradeDescription">Increase BPS multi by 5</span>
+              <span class="upgradeCost">Cost: <span id="buyableCost2">2.00B</span> balls</span>
+              <span class="purchasedCount"><span id="buyableCount2">0</span>/20</span>
+            </button>
+
+            <button type="button" class="centerHorizontal ballButtons upgradeButtons buyablesUpgradeButtons"
+            id="buyablesUpgrade3" onclick="buyablesUpgrade3()">
+              <span class="upgradeDescription">Increase BPS exponent by 0.01</span>
+              <span class="upgradeCost">Cost: <span id="buyableCost3">1.00T</span> balls</span>
+              <span class="purchasedCount"><span id="buyableCount3">0</span>/10</span>
+            </button>
+
+            <button type="button" class="centerHorizontal ballButtons upgradeButtons buyablesUpgradeButtons"
+            id="buyablesUpgrade4" onclick="buyablesUpgrade4()">
+              <span class="upgradeDescription">Multiply base BPS by 1.1</span>
+              <span class="upgradeCost">Cost: <span id="buyableCost4">27.00T</span> balls</span>
+              <span class="purchasedCount"><span id="buyableCount4">0</span>/10</span>
+            </button>
+
+            <button type="button" class="centerHorizontal ballButtons upgradeButtons buyablesUpgradeButtons bU-hidden"
+            id="buyablesUpgrade5" onclick="buyablesUpgrade5()">
+              <span class="upgradeDescription">Multiply BPS multi by 1.1</span>
+              <span class="upgradeCost">Cost: <span id="buyableCost5">500.00T</span> balls</span>
+              <span class="purchasedCount"><span id="buyableCount5">0</span>/10</span>
+            </button>
+
+            <button type="button" class="centerHorizontal ballButtons upgradeButtons buyablesUpgradeButtons bU-hidden"
+            id="buyablesUpgrade6" onclick="buyablesUpgrade6()">
+              <span class="upgradeDescription">Multiply BPS exponent by 1.01</span>
+              <span class="upgradeCost">Cost: <span id="buyableCost6">5.00Qa</span> balls</span>
+              <span class="purchasedCount"><span id="buyableCount6">0</span>/10</span>
+            </button>
+
+            <button type="button" class="centerHorizontal ballButtons upgradeButtons buyablesUpgradeButtons bU-hidden"
+            id="buyablesUpgrade7" onclick="buyablesUpgrade7()">
+              <span class="upgradeDescription">Raise base BPS to 1.01</span>
+              <span class="upgradeCost">Cost: <span id="buyableCost7">5.00Qi</span> balls</span>
+              <span class="purchasedCount"><span id="buyableCount7">0</span>/10</span>
+            </button>
+
+            <button type="button" class="centerHorizontal ballButtons upgradeButtons buyablesUpgradeButtons bU-hidden"
+            id="buyablesUpgrade8" onclick="buyablesUpgrade8()">
+              <span class="upgradeDescription">Raise BPS multi to 1.01</span>
+              <span class="upgradeCost">Cost: <span id="buyableCost8">10.00Qi</span> balls</span>
+              <span class="purchasedCount"><span id="buyableCount8">0</span>/10</span>
+            </button>
+
+            <button type="button" class="centerHorizontal ballButtons upgradeButtons buyablesUpgradeButtons bU-hidden"
+            id="buyablesUpgrade9" onclick="buyablesUpgrade9()">
+              <span class="upgradeDescription">Raise BPS exponent by 1.01</span>
+              <span class="upgradeCost">Cost: <span id="buyableCost9">25.00Qi</span> balls</span>
+              <span class="purchasedCount"><span id="buyableCount9">0</span>/5</span>
             </button>
 
           </div>
@@ -252,6 +378,7 @@
           <button data-upgrades-target="#upgrades-basic" type="button" class="upgradesTabButtonsDefault upgradesTabButtons" id="basicUpgradesTab">Basic</button>
           <button data-upgrades-target="#upgrades-intermediate" type="button" class="upgradesTabButtonsDefault upgradesTabButtons intermediateUpgradeButtons" id="intermediateUpgradesTab">Intermediate</button>
           <button data-upgrades-target="#upgrades-advanced" type="button" class="upgradesTabButtonsDefault upgradesTabButtons hiddenUpgradesTab advancedUpgradeButtons" id="advancedUpgradesTab">Advanced</button>
+          <button data-upgrades-target="#upgrades-expert" type="button" class="upgradesTabButtonsDefault upgradesTabButtons hiddenUpgradesTab expertUpgradeButtons" id="expertUpgradesTab">Expert</button>
           <div class="upgradesTabButtonsSeparator inactive"></div>
           <button data-upgrades-target="#upgrades-buyables" type="button" class="upgradesTabButtonsDefault upgradesTabButtons hiddenUpgradesTab buyablesUpgradeButtons" id="buyablesUpgradesTab">Buyables</button>
         </div>
@@ -261,9 +388,10 @@
       <!-- Milestones Tab -->
       <div id="tab-milestones" data-tab-content>
 
-        <div class="milestonesOuterGroup">
+        <!-- page 1 -->
+        <div class="milestonesOuterGroup" id="milestonesPage_1">
           
-          <div class="milestonesLeftArrow">
+          <div class="milestonesLeftArrow" id="milestonesLeftArrow_1">
           <p class="milestoneArrow"> < </p>
           </div>
 
@@ -316,7 +444,131 @@
             </div>
           </div>
 
-          <div class="milestonesRightArrow">
+          <div class="milestonesRightArrow" id="milestonesRightArrow_1">
+            <p class="milestoneArrow"> > </p>
+          </div>
+
+        </div>
+
+        <!-- page 2-->
+        <div class="milestonesOuterGroup" id="milestonesPage_2">
+          
+          <div class="milestonesLeftArrow" id="milestonesLeftArrow_2">
+          <p class="milestoneArrow"> < </p>
+          </div>
+
+          <div class="milestonesInnerGroup">
+            <p class="textCenterHorizontal milestonesTitle">Milestones Page 2</p>
+
+            <!-- capsule layout -->
+            <div class="milestonesCapsuleContainer">
+
+              <div class="milestonesCapsule" id="milestoneCapsule5">
+                <p class="milestoneCapsuleTitle">M5</p>
+                <div class="capsuleSeparator"></div>
+                <div class="milestoneCapsuleFlex">
+                  <div class="milestoneCapsuleRewardSector"> <p class="milestoneCapsuleReward">Unlock 3 new buyables</p> </div>
+                  <div class="milestoneCapsuleInnerSeparator"></div>
+                  <div class="milestoneCapsuleRequirementSector"> <p class="milestoneCapsuleRequirement">Get 10Qi balls</p> </div>
+                </div>
+              </div>
+              
+              <div class="milestonesCapsule" id="milestoneCapsule6">
+                <p class="milestoneCapsuleTitle">M6</p>
+                <div class="capsuleSeparator"></div>
+                <div class="milestoneCapsuleFlex">
+                  <div class="milestoneCapsuleRewardSector"> <p class="milestoneCapsuleReward">Unlock <strong>Help</strong></p> </div>
+                  <div class="milestoneCapsuleInnerSeparator"></div>
+                  <div class="milestoneCapsuleRequirementSector"> <p class="milestoneCapsuleRequirement">Get 250Sx balls</p> </div>
+                </div>
+              </div>
+
+              <div class="milestonesCapsule" id="milestoneCapsule7">
+                <p class="milestoneCapsuleTitle">M7</p>
+                <div class="capsuleSeparator"></div>
+                <div class="milestoneCapsuleFlex">
+                  <div class="milestoneCapsuleRewardSector"> <p class="milestoneCapsuleReward">I'm being held</p> </div>
+                  <div class="milestoneCapsuleInnerSeparator"></div>
+                  <div class="milestoneCapsuleRequirementSector"> <p class="milestoneCapsuleRequirement">Get 1Oc balls</p> </div>
+                </div>
+              </div>
+
+              <div class="milestonesCapsule" id="milestoneCapsule8">
+                <p class="milestoneCapsuleTitle">M8</p>
+                <div class="capsuleSeparator"></div>
+                <div class="milestoneCapsuleFlex">
+                  <div class="milestoneCapsuleRewardSector"> <p class="milestoneCapsuleReward">Captive</p> </div>
+                  <div class="milestoneCapsuleInnerSeparator"></div>
+                  <div class="milestoneCapsuleRequirementSector"> <p class="milestoneCapsuleRequirement">Get 1Dc balls</p> </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="milestonesRightArrow" id="milestonesRightArrow_2">
+            <p class="milestoneArrow"> > </p>
+          </div>
+
+        </div>
+
+        <!-- page 3-->
+        <div class="milestonesOuterGroup" id="milestonesPage_3">
+          
+          <div class="milestonesLeftArrow" id="milestonesLeftArrow_3">
+          <p class="milestoneArrow"> < </p>
+          </div>
+
+          <div class="milestonesInnerGroup">
+            <p class="textCenterHorizontal milestonesTitle">Milestones Page 3</p>
+
+            <!-- capsule layout -->
+            <div class="milestonesCapsuleContainer">
+
+              <div class="milestonesCapsule" id="milestoneCapsule9">
+                <p class="milestoneCapsuleTitle">M9</p>
+                <div class="capsuleSeparator"></div>
+                <div class="milestoneCapsuleFlex">
+                  <div class="milestoneCapsuleRewardSector"> <p class="milestoneCapsuleReward">Unlock 4 new ahhh</p> </div>
+                  <div class="milestoneCapsuleInnerSeparator"></div>
+                  <div class="milestoneCapsuleRequirementSector"> <p class="milestoneCapsuleRequirement">Get 5Qi balls</p> </div>
+                </div>
+              </div>
+              
+              <div class="milestonesCapsule" id="milestoneCapsule10">
+                <p class="milestoneCapsuleTitle">M10</p>
+                <div class="capsuleSeparator"></div>
+                <div class="milestoneCapsuleFlex">
+                  <div class="milestoneCapsuleRewardSector"> <p class="milestoneCapsuleReward">Unlock <strong>Help</strong></p> </div>
+                  <div class="milestoneCapsuleInnerSeparator"></div>
+                  <div class="milestoneCapsuleRequirementSector"> <p class="milestoneCapsuleRequirement">Get 250Sx balls</p> </div>
+                </div>
+              </div>
+
+              <div class="milestonesCapsule" id="milestoneCapsule11">
+                <p class="milestoneCapsuleTitle">M11</p>
+                <div class="capsuleSeparator"></div>
+                <div class="milestoneCapsuleFlex">
+                  <div class="milestoneCapsuleRewardSector"> <p class="milestoneCapsuleReward">I'm being held</p> </div>
+                  <div class="milestoneCapsuleInnerSeparator"></div>
+                  <div class="milestoneCapsuleRequirementSector"> <p class="milestoneCapsuleRequirement">Get 1Oc balls</p> </div>
+                </div>
+              </div>
+
+              <div class="milestonesCapsule" id="milestoneCapsule12">
+                <p class="milestoneCapsuleTitle">M12</p>
+                <div class="capsuleSeparator"></div>
+                <div class="milestoneCapsuleFlex">
+                  <div class="milestoneCapsuleRewardSector"> <p class="milestoneCapsuleReward">Captive</p> </div>
+                  <div class="milestoneCapsuleInnerSeparator"></div>
+                  <div class="milestoneCapsuleRequirementSector"> <p class="milestoneCapsuleRequirement">Get 1Dc balls</p> </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="milestonesRightArrow" id="milestonesRightArrow_3">
             <p class="milestoneArrow"> > </p>
           </div>
 
@@ -393,6 +645,8 @@
             </div>
 
           </div>
+
+          <p class="endgameText">Endgame: 1Sx balls</p>
 
         </div>
 
