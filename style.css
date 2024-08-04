@@ -446,6 +446,48 @@ button:hover {
   border: 4px solid rgb(0, 138, 110);
 }
 
+/* EXPERT UPGRADES */
+/* General expert upgrade button design */
+.expertUpgradeButtonsGroup {
+  display: flex;
+  flex-wrap: wrap;
+  width: 1050px;
+  height: 490px;
+  justify-content: center;
+  align-content: flex-start;
+  column-gap: 10px;
+  row-gap: 0px;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  border: 4px solid rgb(108, 108, 108);
+  border-radius: 12px;
+}
+
+/* Expert upgrade button design */
+.expertUpgradeButtons {
+  display: block;
+  color: rgb(0, 255, 89);
+  border: 4px solid rgb(0, 255, 89);
+}
+
+.expertUpgradeButtons:hover {
+  background-color: rgb(0, 92, 32);
+}
+
+.expertUpgradeButtons:active {
+  background-color: rgb(0, 43, 14);
+  color: rgb(0, 145, 51);
+  border: 4px solid rgb(0, 145, 51);
+}
+
+/* Disabled expert upgrade button design */
+.expertUpgradeButtons.disabled {
+  background-color: transparent;
+  color: rgb(0, 145, 51);
+  border: 4px solid rgb(0, 145, 51);
+}
+
 /* BUYABLES */
 /* General buyable button design */
 .buyablesUpgradeButtonsGroup {
@@ -462,6 +504,11 @@ button:hover {
   margin-right: auto;
   border: 4px solid rgb(108, 108, 108);
   border-radius: 12px;
+}
+
+/* Hidden intermediate upgrade (not unlocked yet)*/
+.buyablesUpgradeButtons.bU-hidden {
+  display: none;
 }
 
 /* Buyables upgrade button design */
@@ -560,12 +607,6 @@ button:hover {
   margin-left: auto;
   margin-right: auto;
 }
-
-/*
-                  <div class="milestoneCapsuleRewardSector"> <p class="milestoneCapsuleReward">Unlock 2 new upgrades</p> </div>
-                  <div class="milestoneCapsuleInnerSeparator"></div>
-                  <div class="milestoneCapsuleRequirementSector"> <p class="milestoneCapsuleRequirement">Get 1M balls</p> </div>
-*/
 
 /* Milestone capsule stuff */
 .milestonesCapsule {
@@ -792,4 +833,9 @@ button:hover {
 
 .statsHighlight {
   color: rgb(125, 125, 125);
+}
+
+
+.endgameText {
+  margin-top: 25px;
 }
