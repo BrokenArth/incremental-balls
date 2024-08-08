@@ -1,13 +1,23 @@
-// Ball count element
-let ballCountElement = document.querySelector("#ballCount");
-
 // Store the actual values (the displayed ones will be formatted)
+let tickspeed = 1000; // lower = better
 let ballCount = 0;
+
 let ballsPerSecond = 0;
 let baseBPS = 0;
+let baseBPSfinal = 0;
 let multiBPS = 0;
+let multiBPSfinal = 0;
 let expBPS = 0;
+let expBPSfinal = 0;
 
+let baseXPPS = 1;
+let baseXPPSfinal = 0;
+let multiXPPS = 0;
+let multiXPPSfinal = 0;
+let expXPPS = 0;
+let expXPPSfinal = 0;
+
+// UPGRADE STUFF
 // Intermediate upgrade effect stuff
 let iU1_6_11 = 1; // iU1, iU6 and iU11 effects (they do the same thing)
 let iU1_6_11_bought = 0; // aU2 and later stuff
@@ -53,6 +63,19 @@ let eU1 = 1;
 
 let eU2 = 1;
 
+let eU4 = 1;
+let eU4_purchased = false;
+
+let eU5 = 1;
+let eU5_purchased = false;
+
+let eU8 = 0;
+let eU8_purchased = false;
+
+let eU9 = 1;
+
+let eU11 = 1;
+
 // Rebuyable upgrade effect stuff
 let bU4 = 1;
 
@@ -67,8 +90,8 @@ let bU8 = 1;
 let bU9 = 1;
 
 // Track number of upgrades bought
-let baseUpgradesBought = 0; // base value
-let upgradesBought = 0; // this is the value after upgrades are applied to it
+let upgradesBought = 0; // base value
+let upgradesBoughtFinal = 0; // this is the value after upgrades are applied to it
 
 
 // MILESTONE STUFF
@@ -76,46 +99,46 @@ let upgradesBought = 0; // this is the value after upgrades are applied to it
 let milestonesUnlocked = false;
 
 // Page functionality
-const pages = document.querySelectorAll('.milestonesOuterGroup');
-const leftArrows = document.querySelectorAll('.milestonesLeftArrow');
-const rightArrows = document.querySelectorAll('.milestonesRightArrow');
-let currentPage = 0;
+const milestonesPages = document.querySelectorAll('.milestonesOuterGroup');
+const milestonesLeftArrows = document.querySelectorAll('.milestonesLeftArrow');
+const milestonesRightArrows = document.querySelectorAll('.milestonesRightArrow');
+let milestonesCurrentPage = 0;
 
-// Hide all pages initially except the first one
-pages.forEach((page, index) => {
-  if (index !== currentPage) {
+  // hide all pages initially except the first one
+milestonesPages.forEach((page, index) => {
+  if (index !== milestonesCurrentPage) {
     page.style.display = 'none';
   }
 });
 
-function showPage(pageIndex) {
-  pages.forEach((page, index) => {
+function milestonesShowPage(pageIndex) {
+  milestonesPages.forEach((page, index) => {
     page.style.display = index === pageIndex ? 'flex' : 'none';
   });
 }
 
-leftArrows.forEach(arrow => {
+milestonesLeftArrows.forEach(arrow => {
   arrow.addEventListener('click', () => {
-    if (currentPage > 0) {
-      currentPage--;
-      showPage(currentPage);
+    if (milestonesCurrentPage > 0) {
+      milestonesCurrentPage--;
+      milestonesShowPage(milestonesCurrentPage);
     }
   });
 });
 
-rightArrows.forEach(arrow => {
+milestonesRightArrows.forEach(arrow => {
   arrow.addEventListener('click', () => {
-    if (currentPage < pages.length - 1) {
-      currentPage++;
-      showPage(currentPage);
+    if (milestonesCurrentPage < milestonesPages.length - 1) {
+      milestonesCurrentPage++;
+      milestonesShowPage(milestonesCurrentPage);
     }
   });
 });
 
 
 // track number of milestones unlocked
-let baseMilestonesGot = 0;
 let milestonesGot = 0;
+let milestonesGotFinal = 0;
 
 // Milestone effects
 let milestone1_unlocked = false;
@@ -126,7 +149,7 @@ function milestone1_effect() {
   document.querySelector('.intermediateUpgradeButtons#intermediateUpgrade11').classList.remove('iU-hidden'); // milestone reward
   document.querySelector('.intermediateUpgradeButtons#intermediateUpgrade12').classList.remove('iU-hidden'); // milestone reward
 
-  baseMilestonesGot += 1; // increase number of milestones achieved
+  milestonesGot += 1; // increase number of milestones achieved
 
   document.querySelector('.milestonesCapsule#milestoneCapsule1').classList.add('milestoneAchieved'); // add "milestoneAchieved" class to it
 }
@@ -137,7 +160,7 @@ function milestone2_effect() {
   document.getElementById("buyablesUpgradesTab").classList.remove("hiddenUpgradesTab");
   document.querySelector(".upgradesTabButtonsSeparator").classList.remove("inactive");
 
-  baseMilestonesGot += 1;
+  milestonesGot += 1;
 
   document.querySelector('.milestonesCapsule#milestoneCapsule2').classList.add('milestoneAchieved');
 }
@@ -145,9 +168,9 @@ function milestone2_effect() {
 let milestone3_unlocked = false;
 let milestone3_triggered = false;
 function milestone3_effect() {
-  // reward
+  document.getElementById("ballIncrease").style.display = "none";
 
-  baseMilestonesGot += 1;
+  milestonesGot += 1;
 
   document.querySelector('.milestonesCapsule#milestoneCapsule3').classList.add('milestoneAchieved');
 }
@@ -158,7 +181,7 @@ function milestone4_effect() {
   document.querySelector('.buyablesUpgradeButtons#buyablesUpgrade5').classList.remove('bU-hidden');
   document.querySelector('.buyablesUpgradeButtons#buyablesUpgrade6').classList.remove('bU-hidden');
 
-  baseMilestonesGot += 1;
+  milestonesGot += 1;
 
   document.querySelector('.milestonesCapsule#milestoneCapsule4').classList.add('milestoneAchieved');
 }
@@ -170,9 +193,277 @@ function milestone5_effect() {
   document.querySelector('.buyablesUpgradeButtons#buyablesUpgrade8').classList.remove('bU-hidden');
   document.querySelector('.buyablesUpgradeButtons#buyablesUpgrade9').classList.remove('bU-hidden');
 
-  baseMilestonesGot += 1;
+  milestonesGot += 1;
 
   document.querySelector('.milestonesCapsule#milestoneCapsule5').classList.add('milestoneAchieved');
+}
+
+let milestone6_unlocked = false;
+let milestone6_triggered = false;
+function milestone6_effect() {
+  document.getElementById('researchTab').classList.add('activeTab');
+
+  milestonesGot += 1;
+
+  document.querySelector('.milestonesCapsule#milestoneCapsule6').classList.add('milestoneAchieved');
+}
+
+let milestone7_unlocked = false;
+let milestone7_triggered = false;
+function milestone7_effect() {
+  document.querySelector('.buyablesUpgradeButtons#buyablesUpgrade10').classList.remove('bU-hidden');
+  document.querySelector('.buyablesUpgradeButtons#buyablesUpgrade11').classList.remove('bU-hidden');
+  document.querySelector('.buyablesUpgradeButtons#buyablesUpgrade12').classList.remove('bU-hidden');
+
+  milestonesGot += 1;
+
+  document.querySelector('.milestonesCapsule#milestoneCapsule7').classList.add('milestoneAchieved');
+}
+
+// RESEARCH STUFF
+let researchPPS = 0;
+let researchXPPSfinal = 0;
+
+// Research effect stuff
+let r2 = 1;
+let r2_finished = false;
+
+let r3 = 0;
+let r3_finished = false;
+
+let r4 = 1;
+
+let r5 = 0;
+let r5_finished = false;
+
+let r6 = 1;
+let r6_finished = false;
+
+let r8 = 1;
+
+let r9 = 1;
+let r9_finished = false;
+
+let r12 = 1;
+let r12_finished = false;
+
+let r13 = 0;
+let r13_finished = false;
+
+let r14 = 1;
+let r14_finished = false;
+
+let r15 = 1;
+
+// Track number of researches finished
+let researchesFinished = 0;
+let researchesFinishedFinal = 0;
+
+// Page functionality
+const researchPages = document.querySelectorAll('.researchOuterGroup');
+const researchLeftArrows = document.querySelectorAll('.researchLeftArrow');
+const researchRightArrows = document.querySelectorAll('.researchRightArrow');
+let researchCurrentPage = 0;
+
+  // hide all pages initially except the first one
+researchPages.forEach((page, index) => {
+  if (index !== researchCurrentPage) {
+    page.style.display = 'none';
+  }
+});
+
+function researchShowPage(pageIndex) {
+  researchPages.forEach((page, index) => {
+    page.style.display = index === pageIndex ? 'flex' : 'none';
+  });
+}
+
+researchLeftArrows.forEach(arrow => {
+  arrow.addEventListener('click', () => {
+    if (researchCurrentPage > 0) {
+      researchCurrentPage--;
+      researchShowPage(researchCurrentPage);
+    }
+  });
+});
+
+researchRightArrows.forEach(arrow => {
+  arrow.addEventListener('click', () => {
+    if (researchCurrentPage < researchPages.length - 1) {
+      researchCurrentPage++;
+      researchShowPage(researchCurrentPage);
+    }
+  });
+});
+
+// Research functinality
+let researchActivators = document.querySelectorAll(".researchCapsuleHead"); // the button that activates the research
+researchActivators.forEach(research => {
+  research.addEventListener("click", activateResearch);
+});
+
+let researchToggle = document.querySelector(".researchCapsuleToggle"); // the Active/Inactive text
+
+// Function to activate or deactivate research
+function activateResearch(event) {
+  const researchHead = event.currentTarget;
+  const researchCapsule = researchHead.closest(".researchCapsule");
+  const researchToggle = researchCapsule.querySelector(".researchCapsuleToggle");
+
+  // Deactivate any currently active research capsule
+  document.querySelectorAll(".researchCapsule").forEach(capsule => {
+    if (capsule !== researchCapsule && capsule.dataset.active === "true") {
+      const toggle = capsule.querySelector(".researchCapsuleToggle");
+      toggle.textContent = "Inactive";
+      capsule.dataset.active = "false";
+
+      activeCapsule.classList.remove("researchActive");
+    }
+  });
+
+  // Toggle the clicked research capsule
+  if (researchCapsule.dataset.active === "true") {
+    researchToggle.textContent = "Inactive";
+    researchCapsule.dataset.active = "false";
+  } else {
+    researchToggle.textContent = "Active";
+    researchCapsule.dataset.active = "true";
+
+    researchCapsule.classList.add("researchActive");
+  }
+}
+
+// Limits for each research
+const researchLimits = {
+  researchCapsule1: 50,
+  researchCapsule2: 350,
+  researchCapsule3: 1500,
+  researchCapsule4: 1500,
+  researchCapsule5: 10000,
+  researchCapsule6: 25000,
+  researchCapsule7: 50000,
+  researchCapsule8: 150000,
+  researchCapsule9: 500000,
+  researchCapsule10: 500000,
+  researchCapsule11: 2.5e6,
+  researchCapsule12: 5e6,
+  researchCapsule13: 1e7,
+  researchCapsule14: 2.5e7,
+  researchCapsule15: 5e7,
+  researchCapsule16: 2.5e8,
+};
+
+// Research rewards
+function onResearchCompleted(researchCapsule) {
+
+  // Research 1
+  if (researchCapsule.id === "researchCapsule1") {
+    document.querySelector('.expertUpgradeButtons#expertUpgrade6').classList.remove('eU-hidden');
+    document.querySelector('.expertUpgradeButtons#expertUpgrade7').classList.remove('eU-hidden');
+    document.querySelector('.expertUpgradeButtons#expertUpgrade8').classList.remove('eU-hidden');
+    document.querySelector('.expertUpgradeButtons#expertUpgrade9').classList.remove('eU-hidden');
+    document.querySelector('.expertUpgradeButtons#expertUpgrade10').classList.remove('eU-hidden');
+    document.querySelector('.expertUpgradeButtons#expertUpgrade11').classList.remove('eU-hidden');
+    document.querySelector('.expertUpgradeButtons#expertUpgrade12').classList.remove('eU-hidden');
+
+    researchesFinished += 1;
+  }
+
+  // Research 2
+  if (researchCapsule.id === "researchCapsule2") {
+    r2_finished = true;
+    researchesFinished += 1;
+  }
+
+  // Research 3
+  if (researchCapsule.id === "researchCapsule3") {
+    r3_finished = true;
+    researchesFinished += 1;
+  }
+
+  // Research 4
+  if (researchCapsule.id === "researchCapsule4") {
+    r4 *= 1.02; 
+    researchesFinished += 1;
+  }
+
+  // Research 5
+  if (researchCapsule.id === "researchCapsule5") {
+    r5_finished = true;
+    researchesFinished += 1;
+  }
+
+  // Research 6
+  if (researchCapsule.id === "researchCapsule6") {
+    r6_finished = true;
+    researchesFinished += 1;
+  }
+
+  // Research 7
+  if (researchCapsule.id === "researchCapsule7") {
+    tickspeed /= 1.5;
+    researchesFinished += 1;
+
+    gameLoop();
+  }
+
+  // Research 8
+  if (researchCapsule.id === "researchCapsule8") {
+    r8 *= 1.01; 
+    researchesFinished += 1;
+  }
+
+  // Research 9
+  if (researchCapsule.id === "researchCapsule9") {
+    r9_finished = true;
+    researchesFinished += 1;
+  }
+
+  // Research 10
+  if (researchCapsule.id === "researchCapsule10") {
+    expXPPS += 0.05;
+    researchesFinished += 1;
+  }
+
+  // Research 11
+  if (researchCapsule.id === "researchCapsule11") {
+    tickspeed /= 1.5;
+    researchesFinished += 1;
+
+    gameLoop();
+  }
+
+  // Research 12
+  if (researchCapsule.id === "researchCapsule12") {
+    r12_finished = true;
+    researchesFinished += 1;
+  }
+
+  // Research 13
+  if (researchCapsule.id === "researchCapsule13") {
+    r13_finished = true;
+    researchesFinished += 1;
+  }
+
+  // Research 14
+  if (researchCapsule.id === "researchCapsule14") {
+    r14_finished = true;
+    researchesFinished += 1;
+  }
+
+  // Research 15
+  if (researchCapsule.id === "researchCapsule15") {
+    r15 *= 2;
+    researchesFinished += 1;
+  }
+
+  // Research 16
+  if (researchCapsule.id === "researchCapsule16") {
+    researchesFinished += 1;
+
+    document.getElementById('prestigeTab').classList.add('activeTab');
+  }
+
 }
 
 // Number formatting function
@@ -197,7 +488,7 @@ function formatNumber(num) {
 
 // "Get more" button
 function getMoreBalls() {
-  ballCount += 1e6;
+  ballCount += 1;
   updateBallCountDisplay();
 }
 
@@ -243,17 +534,66 @@ upgradesTabs.forEach(tab => {
 
 // Update the DISPLAYED ball count
 function updateBallCountDisplay() {
-    ballCountElement.textContent = formatNumber(ballCount);
-  }
+  document.querySelector("#ballCount").textContent = formatNumber(ballCount);
+}
 
-// Update values and their displayed values
+// Update researches
+function updateResearches() {
+  document.querySelectorAll(".researchCapsule").forEach(researchCapsule => {
+    const progressElement = researchCapsule.querySelector(".researchProgress");
+    const progressPerSecondElement = researchCapsule.querySelector(".researchProgressPerSecond");
+    const researchToggle = researchCapsule.querySelector(".researchCapsuleToggle");
+    const progressBarFill = researchCapsule.querySelector(".researchCapsuleProgressFill");
+
+    // Get the research ID or any unique identifier
+    const researchId = researchCapsule.id;
+    const progressLimit = researchLimits[researchId] || 0;
+
+    // store raw progress value
+    let progress = parseInt(researchCapsule.dataset.progress) || 0;    
+
+    if (researchCapsule.dataset.active === "true") { // if the research is active
+
+      progress += researchXPPSfinal;
+      progress = Math.min(progress, progressLimit); // Cap progress at limit
+      researchCapsule.dataset.progress = progress; // Store the progress value
+
+      // Update progress display
+      progressElement.textContent = formatNumber(progress);
+      progressPerSecondElement.textContent = formatNumber(researchXPPSfinal * (1000 / tickspeed));
+
+      // Update progress bar width
+      const progressPercentage = (progress / progressLimit) * 100;
+      progressBarFill.style.width = `${progressPercentage}%`;
+
+      // Stop the research if the progress reaches the maximum value
+      if (progress >= progressLimit) {
+        researchToggle.textContent = "Completed";
+        researchCapsule.dataset.active = "false"; // Mark the capsule as inactive
+
+        onResearchCompleted(researchCapsule);
+        researchCapsule.classList.add("researchFinished");
+        researchCapsule.classList.remove("researchActive");
+      }
+    } else { // if the research is inactive
+      progressPerSecondElement.textContent = 0;
+
+      researchCapsule.classList.remove("researchActive", "researchCompleted");
+    }
+  });
+}
+
+// Update values
 function updateValues() {
 
   ballCount += ballsPerSecond; // update the actual ball count
   updateBallCountDisplay(); // update the displayed ball count
 
-  // Upgrades bought stuff
-  upgradesBought = baseUpgradesBought * aU1_7;
+  updateResearches(); // update researches
+
+  // UPGRADES UPDATE STUFF
+  // upgrades bought
+  upgradesBoughtFinal = upgradesBought * aU1_7 * eU5;
 
   // iU2 upgrade stuff
   if (iU2_purchased) {
@@ -267,42 +607,57 @@ function updateValues() {
 
   // iU7 upgrade stuff
   if (iU7_purchased) {
-    iU7 = upgradesBought * 0.01;
+    iU7 = upgradesBoughtFinal * 0.01;
   }
 
   // iU9 upgrade stuff
   if (iU9_purchased) {
-    iU9 = upgradesBought / 4;
+    iU9 = upgradesBoughtFinal / 4;
   }
 
   // iU10 upgrade stuff
   if (iU10_purchased) {
-    iU10 = 1 + (milestonesGot / 2);
+    iU10 = 1 + (milestonesGotFinal / 2);
   }
 
   // aU3 upgrade stuff
   if (aU3_purchased) {
-    aU3 = Math.floor(2 * Math.log2(1 + multiBPS));
+    aU3 = Math.floor(2 * Math.log2(1 + multiBPSfinal));
   }
 
   // aU5 upgrade stuff
   if (aU5_purchased) {
-    aU5 = 1 + (Math.sqrt(upgradesBought) / 4);
+    aU5 = 1 + (Math.sqrt(upgradesBoughtFinal) / 8);
   }
 
   // aU8 upgrade stuff
   if (aU8_purchased) {
-    aU8 = 1 + (Math.sqrt(milestonesGot) / 4);
+    aU8 = 1 + (Math.sqrt(milestonesGotFinal) / 4);
   }
 
   // aU11 upgrade stuff
   if (aU11_purchased) {
-    aU11 = 1 + ((upgradesBought) ** (1/3)) / 5;
+    aU11 = 1 + ((upgradesBoughtFinal) ** (1/3)) / 5;
+  }
+
+  // eU4 upgrade stuff
+  if (eU4_purchased) {
+    eU4 = (Math.log(1 + multiBPSfinal)) ** (1/5);
+  }
+
+  // eU5 upgrade stuff
+  if (eU5_purchased) {
+    eU5 = (Math.log(1 + milestonesGotFinal)) ** (1/16);
+  }
+
+  // eU8 upgrade stuff
+  if (eU8_purchased) {
+    eU8 = researchesFinishedFinal * 0.005;
   }
 
   // MILESTONE UPDATE STUFF 
-    // milestones bought
-  milestonesGot = baseMilestonesGot * aU4_9;
+  // milestones achieved
+  milestonesGotFinal = milestonesGot * aU4_9;
 
   if (milestonesUnlocked == true) {
 
@@ -329,53 +684,120 @@ function updateValues() {
     if (ballCount >= 1e19 && milestone5_triggered == false) {
         milestone5_effect();
         milestone5_triggered = true;
-      }
+    }
+
+    if (ballCount >= 1e24 && milestone6_triggered == false) {
+      milestone6_effect();
+      milestone6_triggered = true;
+    }
+
+    if (ballCount >= 1e27 && milestone7_triggered == false) {
+      milestone7_effect();
+      milestone7_triggered = true;
+    } 
   }
 
+  // RESEARCH UPDATE STUFF
+  // researches finished
+  researchesFinishedFinal = researchesFinished;
+
+  // r2 effect stuff
+  if (r2_finished) {
+    r2 = 1.4 ** (Math.floor(researchesFinishedFinal/2));
+  }
+
+  // r3 effect stuff
+  if (r3_finished) {
+    r3 = 3 * researchesFinishedFinal;
+  }
+
+  // r5 effect stuff
+  if (r5_finished) {
+    r5 = milestonesGotFinal;
+  }
+
+  // r6 effect stuff
+  if (r6_finished) {
+    r6 = Math.floor(1 + Math.log(Math.sqrt(ballCount)) / 50);
+  }
+
+  // r9 effect stuff
+  if (r9_finished) {
+    r9 = 1 + (researchesFinishedFinal * 0.001);
+  }
+
+  // r12 effect stuff
+  if (r12_finished) {
+    r12 = 1.06 ** (Math.floor(researchesFinishedFinal/3));
+  }
+
+  // r13 effect stuff
+  if (r13_finished) {
+    r13 = Math.floor(Math.log10(1+ballsPerSecond));
+  }
+
+  // r14 effect stuff
+  if (r14_finished) {
+    r14 = Math.floor(Math.log2(1 + milestonesGotFinal) / 3);
+  }
+
+  // Final values
+  baseBPSfinal = ((baseBPS + iU2) * iU3 * iU10 * aU5 * aU11 * eU4 * bU4 * r6 * r12 * r14) ** (eU1 * bU7 * r4 * r9);
+  multiBPSfinal = ((multiBPS + iU5 + iU9 + aU3) * iU1_6_11 * aU8 * bU5 * r2) ** (eU2 * bU8 * r8);
+  expBPSfinal = ((expBPS + iU7 + eU8) * aU10 * bU6) ** bU9;
+
+  baseXPPSfinal = (baseXPPS + r3 + r5 + r13) * eU11;
+  multiXPPSfinal = multiXPPS * eU9 * r15;
+  expXPPSfinal = expXPPS;
+
   // Recalculate BPS
-  ballsPerSecond = ((((baseBPS + iU2) * iU3 * iU10 * aU5 * aU11 * bU4) ** (eU1 * bU7)) /* <- base */ * (1 + ((multiBPS + iU5 + iU9 + aU3) * iU1_6_11 * aU8 * bU5) ** (eU2 * bU8)) /* <- multi */ ) ** (1 + ((expBPS + iU7) * aU10 * bU6) ** bU9) /* <- exp */;
+  ballsPerSecond = (baseBPSfinal * (1 + multiBPSfinal)) ** (1 + expBPSfinal);
+
+  // Recalculate research PPS
+  researchXPPSfinal = (baseXPPSfinal * (1 + multiXPPSfinal)) ** (1 + expXPPSfinal);
 
   let perSecondCount1 = document.querySelector(".perSecondCount-1");
-  perSecondCount1.textContent = formatNumber(ballsPerSecond); // displayed value update
-  
-  // STATS
-    // stats variables
-  let statsBallsPerSecond = ballsPerSecond;
-  let statsBaseBPS = ((baseBPS + iU2) * iU3 * iU10 * aU5 * aU11 * bU4) ** (eU1 * bU7);
-  let statsMultiBPS = ((multiBPS + iU5 + iU9 + aU3) * iU1_6_11 * aU8 * bU5) ** (eU2 * bU8);
-  let statsExpBPS = ((expBPS + iU7) * aU10 * bU6) ** bU9;
-  let statsUpgradesBought = upgradesBought;
-  let statsBaseUpgradesBought = baseUpgradesBought;
-  let statsMilestonesGot = milestonesGot;
-  let statsBaseMilestonesGot = baseMilestonesGot;
+  perSecondCount1.textContent = formatNumber(ballsPerSecond * (1000 / tickspeed)); // displayed value update
 
+  // STATS
   let perSecondCount2 = document.querySelector(".perSecondCount-2");
-  perSecondCount2.textContent = formatNumber(statsBallsPerSecond); // displayed value update
+  perSecondCount2.textContent = formatNumber(ballsPerSecond); // displayed value update
 
   let baseCount = document.querySelector(".baseCount");
-  baseCount.textContent = formatNumber(statsBaseBPS); // displayed value update
+  baseCount.textContent = formatNumber(baseBPSfinal);
 
   let multiCount = document.querySelector(".multiCount");
-  multiCount.textContent = formatNumber(statsMultiBPS); // displayed value update
+  multiCount.textContent = formatNumber(multiBPSfinal);
 
   let expCount = document.querySelector(".expCount");
-  expCount.textContent = formatNumber(statsExpBPS); // displayed value update
+  expCount.textContent = formatNumber(expBPSfinal);
 
   let upgCount = document.querySelector(".upgCount");
-  upgCount.textContent = formatNumber(statsUpgradesBought); // displayed value update
+  upgCount.textContent = formatNumber(upgradesBoughtFinal);
 
   let baseUpgCount = document.querySelector(".baseUpgCount");
-  baseUpgCount.textContent = formatNumber(statsBaseUpgradesBought); // displayed value update
+  baseUpgCount.textContent = formatNumber(upgradesBought);
 
   let milestonesCount = document.querySelector(".milestonesCount");
-  milestonesCount.textContent = formatNumber(statsMilestonesGot); // displayed value update
+  milestonesCount.textContent = formatNumber(milestonesGotFinal);
 
   let baseMilestonesCount = document.querySelector(".baseMilestonesCount");
-  baseMilestonesCount.textContent = formatNumber(statsBaseMilestonesGot); // displayed value update
+  baseMilestonesCount.textContent = formatNumber(milestonesGot);
+
+  let researchCount = document.querySelector(".researchCount");
+  researchCount.textContent = formatNumber(researchesFinishedFinal);
+
+  let baseResearchCount = document.querySelector(".baseResearchCount");
+  baseResearchCount.textContent = formatNumber(researchesFinished);
 }
 
+let intervalId;
+
 function gameLoop() {
-  setInterval(updateValues, 1000);
+  if (intervalId) {
+    clearInterval(intervalId);
+  }
+  intervalId = setInterval(updateValues, tickspeed);
 }
 
 window.onload = function() {
@@ -387,7 +809,7 @@ function upgrade1() {
   if (ballCount >= 10) {
     ballCount -= 10; // update actual ball count
     baseBPS += 1;
-    baseUpgradesBought += 1;
+    upgradesBought += 1;
 
     document.getElementById("upgrade1").onclick = null;
     document.getElementById("upgrade1").classList.add("disabled");
@@ -400,7 +822,7 @@ function upgrade2() {
   if (ballCount >= 25) {
     ballCount -= 25;
     baseBPS += 0.5;
-    baseUpgradesBought += 1;
+    upgradesBought += 1;
 
     document.getElementById("upgrade2").onclick = null;
     document.getElementById("upgrade2").classList.add("disabled");
@@ -413,7 +835,7 @@ function upgrade3() {
   if (ballCount >= 50) {
     ballCount -= 50;
     multiBPS += 1;
-    baseUpgradesBought += 1;
+    upgradesBought += 1;
 
     document.getElementById("upgrade3").onclick = null;
     document.getElementById("upgrade3").classList.add("disabled");
@@ -426,7 +848,7 @@ function upgrade4() {
   if (ballCount >= 100) {
     ballCount -= 100;
     baseBPS += 2;
-    baseUpgradesBought += 1;
+    upgradesBought += 1;
 
     document.getElementById("upgrade4").onclick = null;
     document.getElementById("upgrade4").classList.add("disabled");
@@ -439,7 +861,7 @@ function upgrade5() {
   if (ballCount >= 250) {
     ballCount -= 250;
     multiBPS += 1.5;
-    baseUpgradesBought += 1;
+    upgradesBought += 1;
 
     document.getElementById("upgrade5").onclick = null;
     document.getElementById("upgrade5").classList.add("disabled");
@@ -452,7 +874,7 @@ function upgrade6() {
   if (ballCount >= 350) {
     ballCount -= 350;
     expBPS += 0.1;
-    baseUpgradesBought += 1;
+    upgradesBought += 1;
 
     document.getElementById("upgrade6").onclick = null;
     document.getElementById("upgrade6").classList.add("disabled");
@@ -465,7 +887,7 @@ function upgrade7() {
   if (ballCount >= 500) {
     ballCount -= 500;
     baseBPS += 2;
-    baseUpgradesBought += 1;
+    upgradesBought += 1;
 
     document.getElementById("upgrade7").onclick = null;
     document.getElementById("upgrade7").classList.add("disabled");
@@ -478,7 +900,7 @@ function upgrade8() {
   if (ballCount >= 750) {
     ballCount -= 750;
     multiBPS += 1.5;
-    baseUpgradesBought += 1;
+    upgradesBought += 1;
 
     document.getElementById("upgrade8").onclick = null;
     document.getElementById("upgrade8").classList.add("disabled");
@@ -491,7 +913,7 @@ function upgrade9() {
   if (ballCount >= 1000) {
     ballCount -= 1000;
     baseBPS += 3;
-    baseUpgradesBought += 1;
+    upgradesBought += 1;
 
     document.getElementById("upgrade9").onclick = null;
     document.getElementById("upgrade9").classList.add("disabled");
@@ -504,7 +926,7 @@ function upgrade10() {
   if (ballCount >= 2500) {
     ballCount -= 2500;
     expBPS += 0.1;
-    baseUpgradesBought += 1;
+    upgradesBought += 1;
 
     document.getElementById("upgrade10").onclick = null;
     document.getElementById("upgrade10").classList.add("disabled");
@@ -517,7 +939,7 @@ function upgrade11() {
   if (ballCount >= 3500) {
     ballCount -= 3500;
     multiBPS += 2;
-    baseUpgradesBought += 1;
+    upgradesBought += 1;
 
     document.getElementById("upgrade11").onclick = null;
     document.getElementById("upgrade11").classList.add("disabled");
@@ -529,7 +951,7 @@ function upgrade11() {
 function upgrade12() { // this one unlocks Intermediate Upgrades
   if (ballCount >= 10000) {
     ballCount -= 10000;
-    baseUpgradesBought += 1;
+    upgradesBought += 1;
 
     document.getElementById("upgrade12").onclick = null;
     document.getElementById("upgrade12").classList.add("disabled");
@@ -549,7 +971,7 @@ function intermediateUpgrade1() {
     ballCount -= 2500;
     iU1_6_11 *= 1.5;
     iU1_6_11_bought += 1; // for aU2 and later stuff
-    baseUpgradesBought += 1;
+    upgradesBought += 1;
 
     document.getElementById("intermediateUpgrade1").onclick = null;
     document.getElementById("intermediateUpgrade1").classList.add("disabled");
@@ -561,7 +983,7 @@ function intermediateUpgrade1() {
 function intermediateUpgrade2() {
   if (ballCount >= 25000) {
     ballCount -= 25000;
-    baseUpgradesBought += 1;
+    upgradesBought += 1;
 
     document.getElementById("intermediateUpgrade2").onclick = null;
     document.getElementById("intermediateUpgrade2").classList.add("disabled");
@@ -576,7 +998,7 @@ function intermediateUpgrade3() {
   if (ballCount >= 35000) {
     ballCount -= 35000;
     iU3 *= 2;
-    baseUpgradesBought += 1;
+    upgradesBought += 1;
 
     document.getElementById("intermediateUpgrade3").onclick = null;
     document.getElementById("intermediateUpgrade3").classList.add("disabled");
@@ -589,7 +1011,7 @@ function intermediateUpgrade4() {
   if (ballCount >= 100000) {
     ballCount -= 100000;
     expBPS += 0.1;
-    baseUpgradesBought += 1;
+    upgradesBought += 1;
 
     document.getElementById("intermediateUpgrade4").onclick = null;
     document.getElementById("intermediateUpgrade4").classList.add("disabled");
@@ -601,7 +1023,7 @@ function intermediateUpgrade4() {
 function intermediateUpgrade5() {
   if (ballCount >= 200000) {
     ballCount -= 200000;
-    baseUpgradesBought += 1;
+    upgradesBought += 1;
 
     document.getElementById("intermediateUpgrade5").onclick = null;
     document.getElementById("intermediateUpgrade5").classList.add("disabled");
@@ -617,7 +1039,7 @@ function intermediateUpgrade6() {
     ballCount -= 500000;
     iU1_6_11 *= 1.5;
     iU1_6_11_bought += 1; // for aU2 and later stuff
-    baseUpgradesBought += 1;
+    upgradesBought += 1;
 
     document.getElementById("intermediateUpgrade6").onclick = null;
     document.getElementById("intermediateUpgrade6").classList.add("disabled");
@@ -629,7 +1051,7 @@ function intermediateUpgrade6() {
 function intermediateUpgrade7() {
   if (ballCount >= 750000) {
     ballCount -= 750000;
-    baseUpgradesBought += 1;
+    upgradesBought += 1;
 
     document.getElementById("intermediateUpgrade7").onclick = null;
     document.getElementById("intermediateUpgrade7").classList.add("disabled");
@@ -643,7 +1065,7 @@ function intermediateUpgrade7() {
 function intermediateUpgrade8() {
   if (ballCount >= 2.5e6) {
     ballCount -= 2.5e6;
-    baseUpgradesBought += 1;
+    upgradesBought += 1;
 
     document.getElementById("intermediateUpgrade8").onclick = null;
     document.getElementById("intermediateUpgrade8").classList.add("disabled");
@@ -660,7 +1082,7 @@ function intermediateUpgrade8() {
 function intermediateUpgrade9() {
   if (ballCount >= 1.5e6) {
     ballCount -= 1.5e6;
-    baseUpgradesBought += 1;
+    upgradesBought += 1;
 
     document.getElementById("intermediateUpgrade9").onclick = null;
     document.getElementById("intermediateUpgrade9").classList.add("disabled");
@@ -674,7 +1096,7 @@ function intermediateUpgrade9() {
 function intermediateUpgrade10() {
   if (ballCount >= 4e6) {
     ballCount -= 4e6;
-    baseUpgradesBought += 1;
+    upgradesBought += 1;
 
     document.getElementById("intermediateUpgrade10").onclick = null;
     document.getElementById("intermediateUpgrade10").classList.add("disabled");
@@ -690,7 +1112,7 @@ function intermediateUpgrade11() {
     ballCount -= 1.2e7;
     iU1_6_11 *= 1.5;
     iU1_6_11_bought += 1; // for aU2 and later stuff
-    baseUpgradesBought += 1;
+    upgradesBought += 1;
 
     document.getElementById("intermediateUpgrade11").onclick = null;
     document.getElementById("intermediateUpgrade11").classList.add("disabled");
@@ -700,9 +1122,9 @@ function intermediateUpgrade11() {
 }
 
 function intermediateUpgrade12() {
-  if (ballCount >= 5e7) {
-    ballCount -= 5e7;
-    baseUpgradesBought += 1;
+  if (ballCount >= 2.5e7) {
+    ballCount -= 2.5e7;
+    upgradesBought += 1;
 
     document.getElementById("advancedUpgradesTab").classList.remove("hiddenUpgradesTab")
 
@@ -718,7 +1140,7 @@ function advancedUpgrade1() {
   if (ballCount >= 1e7) {
     ballCount -= 1e7;
     aU1_7 *= 1.2;
-    baseUpgradesBought += 1;
+    upgradesBought += 1;
 
     document.getElementById("advancedUpgrade1").onclick = null;
     document.getElementById("advancedUpgrade1").classList.add("disabled");
@@ -730,8 +1152,8 @@ function advancedUpgrade1() {
 function advancedUpgrade2() {
   if (ballCount >= 7.5e7) {
     ballCount -= 7.5e7;
-    iU1_6_11 *= 1.2 ** iU1_6_11_bought; // not really doing what the upgrade is saying but it works for now ig -[!] the effect is theoretically 1.8 now[!]-
-    baseUpgradesBought += 1;
+    iU1_6_11 *= 1.2 ** iU1_6_11_bought;
+    upgradesBought += 1;
 
     // updates
     document.getElementById("iU1_effect").textContent = 1.8;
@@ -748,7 +1170,7 @@ function advancedUpgrade2() {
 function advancedUpgrade3() {
   if (ballCount >= 6e8) {
     ballCount -= 6e8;
-    baseUpgradesBought += 1;
+    upgradesBought += 1;
 
     document.getElementById("advancedUpgrade3").onclick = null;
     document.getElementById("advancedUpgrade3").classList.add("disabled");
@@ -763,7 +1185,7 @@ function advancedUpgrade4() {
   if (ballCount >= 1.2e9) {
     ballCount -= 1.2e9;
     aU4_9 *= 1.5;
-    baseUpgradesBought += 1;
+    upgradesBought += 1;
 
     document.getElementById("advancedUpgrade4").onclick = null;
     document.getElementById("advancedUpgrade4").classList.add("disabled");
@@ -775,7 +1197,7 @@ function advancedUpgrade4() {
 function advancedUpgrade5() {
   if (ballCount >= 4e9) {
     ballCount -= 4e9;
-    baseUpgradesBought += 1;
+    upgradesBought += 1;
 
     document.getElementById("advancedUpgrade5").onclick = null;
     document.getElementById("advancedUpgrade5").classList.add("disabled");
@@ -790,7 +1212,7 @@ function advancedUpgrade6() {
   if (ballCount >= 3e10) {
     ballCount -= 3e10;
     expBPS += 0.1;
-    baseUpgradesBought += 1;
+    upgradesBought += 1;
 
     document.getElementById("advancedUpgrade6").onclick = null;
     document.getElementById("advancedUpgrade6").classList.add("disabled");
@@ -803,7 +1225,7 @@ function advancedUpgrade7() {
   if (ballCount >= 2e11) {
     ballCount -= 2e11;
     aU1_7 *= 1.2;
-    baseUpgradesBought += 1;
+    upgradesBought += 1;
 
     document.getElementById("advancedUpgrade7").onclick = null;
     document.getElementById("advancedUpgrade7").classList.add("disabled");
@@ -815,7 +1237,7 @@ function advancedUpgrade7() {
 function advancedUpgrade8() {
   if (ballCount >= 7.5e12) {
     ballCount -= 7.5e12;
-    baseUpgradesBought += 1;
+    upgradesBought += 1;
 
     document.getElementById("advancedUpgrade8").onclick = null;
     document.getElementById("advancedUpgrade8").classList.add("disabled");
@@ -830,7 +1252,7 @@ function advancedUpgrade9() {
   if (ballCount >= 5e13) {
     ballCount -= 5e13;
     aU4_9 *= 1.5;
-    baseUpgradesBought += 1;
+    upgradesBought += 1;
 
     document.getElementById("advancedUpgrade9").onclick = null;
     document.getElementById("advancedUpgrade9").classList.add("disabled");
@@ -843,7 +1265,7 @@ function advancedUpgrade10() {
   if (ballCount >= 2.5e14) {
     ballCount -= 2.5e14;
     aU10 *= 1.05;
-    baseUpgradesBought += 1;
+    upgradesBought += 1;
 
     document.getElementById("advancedUpgrade10").onclick = null;
     document.getElementById("advancedUpgrade10").classList.add("disabled");
@@ -855,7 +1277,7 @@ function advancedUpgrade10() {
 function advancedUpgrade11() {
   if (ballCount >= 5e15) {
     ballCount -= 5e15;
-    baseUpgradesBought += 1;
+    upgradesBought += 1;
 
     document.getElementById("advancedUpgrade11").onclick = null;
     document.getElementById("advancedUpgrade11").classList.add("disabled");
@@ -869,7 +1291,7 @@ function advancedUpgrade11() {
 function advancedUpgrade12() {
   if (ballCount >= 1e17) {
     ballCount -= 1e17; 
-    baseUpgradesBought += 1;
+    upgradesBought += 1;
 
     document.getElementById("expertUpgradesTab").classList.remove("hiddenUpgradesTab")
 
@@ -884,8 +1306,8 @@ function advancedUpgrade12() {
 function expertUpgrade1() {
   if (ballCount >= 5e16) {
     ballCount -= 5e16;
-    eU1 *= 1.05;
-    baseUpgradesBought += 1;
+    eU1 *= 1.03;
+    upgradesBought += 1;
 
     document.getElementById("expertUpgrade1").onclick = null;
     document.getElementById("expertUpgrade1").classList.add("disabled");
@@ -897,12 +1319,147 @@ function expertUpgrade1() {
 function expertUpgrade2() {
   if (ballCount >= 4e18) {
     ballCount -= 4e18;
-    eU2 *= 1.05;
-    baseUpgradesBought += 1;
+    eU2 *= 1.03;
+    upgradesBought += 1;
   
     document.getElementById("expertUpgrade2").onclick = null;
     document.getElementById("expertUpgrade2").classList.add("disabled");
   
+    updateBallCountDisplay();
+  }
+}
+
+function expertUpgrade3() {
+  if (ballCount >= 1e21) {
+    ballCount -= 1e21;
+    tickspeed /= 1.5;
+    upgradesBought += 1;
+  
+    document.getElementById("expertUpgrade3").onclick = null;
+    document.getElementById("expertUpgrade3").classList.add("disabled");
+  
+    updateBallCountDisplay();
+    gameLoop();
+  }
+}
+
+function expertUpgrade4() {
+  if (ballCount >= 5e21) {
+    ballCount -= 5e21;
+    upgradesBought += 1;
+  
+    document.getElementById("expertUpgrade4").onclick = null;
+    document.getElementById("expertUpgrade4").classList.add("disabled");
+
+    eU4_purchased = true;
+  
+    updateBallCountDisplay();
+  }
+}
+
+function expertUpgrade5() {
+  if (ballCount >= 8e22) {
+    ballCount -= 8e22;
+    upgradesBought += 1;
+  
+    document.getElementById("expertUpgrade5").onclick = null;
+    document.getElementById("expertUpgrade5").classList.add("disabled");
+
+    eU5_purchased = true;
+  
+    updateBallCountDisplay();
+  }
+}
+
+function expertUpgrade6() {
+  if (ballCount >= 1.5e24) {
+    ballCount -= 1.5e24;
+    baseXPPS += 4;
+    upgradesBought += 1;
+  
+    document.getElementById("expertUpgrade6").onclick = null;
+    document.getElementById("expertUpgrade6").classList.add("disabled");
+  
+    updateBallCountDisplay();
+  }
+}
+
+function expertUpgrade7() {
+  if (ballCount >= 2e25) {
+    ballCount -= 2e25;
+    multiXPPS += 1;
+    upgradesBought += 1;
+  
+    document.getElementById("expertUpgrade7").onclick = null;
+    document.getElementById("expertUpgrade7").classList.add("disabled");
+  
+    updateBallCountDisplay();
+  }
+}
+
+function expertUpgrade8() {
+  if (ballCount >= 3e26) {
+    ballCount -= 3e26;
+    upgradesBought += 1;
+  
+    document.getElementById("expertUpgrade8").onclick = null;
+    document.getElementById("expertUpgrade8").classList.add("disabled");
+
+    eU8_purchased = true;
+  
+    updateBallCountDisplay();
+  }
+}
+
+function expertUpgrade9() {
+  if (ballCount >= 1e29) {
+    ballCount -= 1e29;
+    eU9 *= 3;
+    upgradesBought += 1;
+  
+    document.getElementById("expertUpgrade9").onclick = null;
+    document.getElementById("expertUpgrade9").classList.add("disabled");
+  
+    updateBallCountDisplay();
+  }
+}
+
+function expertUpgrade10() {
+  if (ballCount >= 2.5e31) {
+    ballCount -= 2.5e31;
+    expXPPS += 0.05;
+    upgradesBought += 1;
+  
+    document.getElementById("expertUpgrade10").onclick = null;
+    document.getElementById("expertUpgrade10").classList.add("disabled");
+  
+    updateBallCountDisplay();
+  }
+}
+
+function expertUpgrade11() {
+  if (ballCount >= 3e32) {
+    ballCount -= 3e32;
+    eU11 *= 2.5;
+    upgradesBought += 1;
+  
+    document.getElementById("expertUpgrade11").onclick = null;
+    document.getElementById("expertUpgrade11").classList.add("disabled");
+  
+    updateBallCountDisplay();
+  }
+}
+
+function expertUpgrade12() {
+  if (ballCount >= 2.5e34) {
+    ballCount -= 2.5e34; 
+    upgradesBought += 1;
+
+    document.getElementById("masterUpgradesTab").classList.remove("hiddenUpgradesTab")
+
+    document.getElementById("expertUpgrade12").onclick = null;
+    document.getElementById("expertUpgrade12").classList.add("disabled");
+
     updateBallCountDisplay();
   }
 }
@@ -1133,10 +1690,132 @@ function buyablesUpgrade9() {
   }
 }
 
+// bU10 variables
+let bU10_cost = 2.5e26;
+let bU10_count = 0;
+let bU10_limit = 20;
+  
+function buyablesUpgrade10() {
+  if (ballCount >= bU10_cost * (2 ** bU10_count) && bU10_count < bU10_limit) {
+    ballCount -= bU10_cost * (2 ** bU10_count);
+    baseXPPS += 5;
+    upgradesBought += 0.05;
+  
+    // updates
+    bU10_count += 1;
+    document.getElementById("buyableCost10").textContent = formatNumber(bU10_cost * (2 ** bU10_count));
+    document.getElementById("buyableCount10").textContent = (bU10_count).toFixed(0);
+  
+    if (bU10_count == bU10_limit) {
+      document.getElementById("buyablesUpgrade10").onclick = null;
+      document.getElementById("buyablesUpgrade10").classList.add("disabled");
+    }
+  
+    updateBallCountDisplay();
+  }
+}
 
+// bU11 variables
+let bU11_cost = 5e26;
+let bU11_count = 0;
+let bU11_limit = 10;
+  
+function buyablesUpgrade11() {
+  if (ballCount >= bU11_cost * (3 ** bU11_count) && bU11_count < bU11_limit) {
+    ballCount -= bU11_cost * (3 ** bU11_count);
+    multiXPPS += 2;
+    upgradesBought += 0.1;
+  
+    // updates
+    bU11_count += 1;
+    document.getElementById("buyableCost11").textContent = formatNumber(bU11_cost * (3 ** bU11_count));
+    document.getElementById("buyableCount11").textContent = (bU11_count).toFixed(0);
+  
+    if (bU11_count == bU11_limit) {
+      document.getElementById("buyablesUpgrade11").onclick = null;
+      document.getElementById("buyablesUpgrade11").classList.add("disabled");
+    }
+  
+    updateBallCountDisplay();
+  }
+}
+
+// bU12 variables
+let bU12_cost = 1e27;
+let bU12_count = 0;
+let bU12_limit = 10;
+  
+function buyablesUpgrade12() {
+  if (ballCount >= bU12_cost * (5 ** bU12_count) && bU12_count < bU12_limit) {
+    ballCount -= bU12_cost * (5 ** bU12_count);
+    expXPPS += 0.01;
+    upgradesBought += 0.1;
+  
+    // updates
+    bU12_count += 1;
+    document.getElementById("buyableCost12").textContent = formatNumber(bU12_cost * (5 ** bU12_count));
+    document.getElementById("buyableCount12").textContent = (bU12_count).toFixed(0);
+  
+    if (bU12_count == bU12_limit) {
+      document.getElementById("buyablesUpgrade12").onclick = null;
+      document.getElementById("buyablesUpgrade12").classList.add("disabled");
+    }
+  
+    updateBallCountDisplay();
+  }
+}
 
 // SETTINGS
 // Kill yourself
 function refreshPage() {
   location.reload();
 }
+
+
+
+// PRESTIGE RESET
+
+// First reset animation
+let escapeButton = document.getElementById("escapeButton");
+let resetBG = document.getElementById("reset1_bg");
+let slash = document.getElementById("slash");
+let escapeMessage = document.getElementById("escapeMessage");
+
+escapeButton.addEventListener("click", () => {
+  resetBG.style.display = "block";
+  escapeButton.disabled = true;
+  escapeButton.style.pointerEvents = "none";
+
+  setTimeout(() => { // after 1.25s
+    slash.style.display = "block";
+  }, 1250);
+
+  setTimeout(() => { // after 2s
+    escapeButton.style.display = "none";
+    slash.style.display = "none";
+    resetBG.style.backgroundColor = "black";
+  }, 2000);
+
+  setTimeout(() => { // after 3s
+    escapeMessage.textContent = "There is no escape.";
+    escapeMessage.classList.add('show');
+
+    setTimeout(() => { // after 5s
+      escapeMessage.classList.add('fade-out');
+    }, 2000);
+
+  }, 3000);
+
+  setTimeout(() => { // after 10s
+    //prestigeReset();
+    escapeButton.style.display = "none";
+    document.getElementById("prestigeTab").textContent = "Prestige";
+    resetBG.style.display = "none";
+    slash.style.display = "none";
+    escapeMessage.style.display = "none";
+  }, 10000);
+
+});
+
+// Reset function
+  // none lol
