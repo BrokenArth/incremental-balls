@@ -1,6 +1,75 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
 /* Background color */
 body {
   background-color: rgb(25, 25, 25);
+}
+
+/* Live balls reaction */
+.secretTab {
+  position: absolute;
+  left: 80%;
+  background-color: transparent;
+  border: 4px solid rgb(26, 26, 26);
+  border-radius: 12px;
+  color: rgb(26, 26, 26);
+  padding: 8px 16px;
+  text-align: center;
+  display: block;
+  font-size: 16px;
+  font-family: "Roboto Mono";
+}
+
+.secretTab:hover {
+  border: 4px solid rgb(42, 42, 42);
+  color: rgb(42, 42, 42);
+}
+
+#liveReaction {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 600px;
+  height: 400px;
+  margin-left: -300px;
+  margin-top: -200px;
+  display: none;
+  flex-direction: column;
+}
+
+#liveTextContainer {
+  width: 600px;
+  height: 75px;
+  background-color: red;  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#liveText {
+  font-family: impact;
+  font-size: 52px;
+  color: white;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+}
+
+#liveContainer {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+}
+
+.ball {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: red;
+  z-index: 0;
 }
 
 /* Center [element] horizontally */
@@ -26,6 +95,10 @@ p {
 /* General button cursor animation */
 button:hover {
   cursor: pointer;
+}
+
+.ballText {
+  margin-top: 10px;
 }
 
 /* Ball counter design */
@@ -171,6 +244,60 @@ button:hover {
   background-color: rgb(37, 26, 0);
   color: rgb(146, 105, 0);
   border: 4px solid rgb(146, 105, 0);
+}
+
+#researchTab {
+  display: none;
+}
+
+/* Research tab design */
+#researchTab.activeTab {
+  display: block;
+  background-color: transparent;
+  border: 4px solid rgb(13, 255, 0);
+  border-radius: 12px;
+  color: rgb(13, 255, 0);
+  right: 140px;
+  text-align: center;
+  font-size: 32px;
+  font-family: "Roboto Mono";
+}
+
+#researchTab.activeTab:hover {
+  background-color: rgb(5, 100, 0);
+}
+
+#researchTab.activeTab:active {
+  background-color: rgb(2, 31, 0);
+  color: rgb(8, 150, 0);
+  border: 4px solid rgb(8, 150, 0);
+}
+
+#prestigeTab {
+  display: none;
+}
+
+/* Research tab design */
+#prestigeTab.activeTab {
+  display: block;
+  background-color: transparent;
+  border: 4px solid rgb(132, 0, 255);
+  border-radius: 12px;
+  color: rgb(132, 0, 255);
+  right: 140px;
+  text-align: center;
+  font-size: 32px;
+  font-family: "Roboto Mono";
+}
+
+#prestigeTab.activeTab:hover {
+  background-color: rgb(53, 0, 103);
+}
+
+#prestigeTab.activeTab:active {
+  background-color: rgb(22, 0, 41);
+  color: rgb(77, 0, 150);
+  border: 4px solid rgb(77, 0, 150);
 }
 
 /* Settings tab design */
@@ -464,6 +591,11 @@ button:hover {
   border-radius: 12px;
 }
 
+/* Hidden expert upgrades (not unlocked yet)*/
+.expertUpgradeButtons.eU-hidden {
+  display: none;
+}
+
 /* Expert upgrade button design */
 .expertUpgradeButtons {
   display: block;
@@ -488,6 +620,53 @@ button:hover {
   border: 4px solid rgb(0, 145, 51);
 }
 
+/* MASTER UPGRADES */
+/* General master upgrade button design */
+.masterUpgradeButtonsGroup {
+  display: flex;
+  flex-wrap: wrap;
+  width: 1050px;
+  height: 490px;
+  justify-content: center;
+  align-content: flex-start;
+  column-gap: 10px;
+  row-gap: 0px;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  border: 4px solid rgb(108, 108, 108);
+  border-radius: 12px;
+}
+
+/* Hidden master upgrades (not unlocked yet)*/
+.masterUpgradeButtons.mU-hidden {
+  display: none;
+}
+
+/* Master upgrade button design */
+.masterUpgradeButtons {
+  display: block;
+  color: rgb(153, 255, 0);
+  border: 4px solid rgb(153, 255, 0);
+}
+
+.masterUpgradeButtons:hover {
+  background-color: rgb(60, 100, 0);
+}
+
+.masterUpgradeButtons:active {
+  background-color: rgb(24, 40, 0);
+  color: rgb(85, 141, 0);
+  border: 4px solid rgb(85, 141, 0);
+}
+
+/* Disabled master upgrade button design */
+.masterUpgradeButtons.disabled {
+  background-color: transparent;
+  color: rgb(85, 141, 0);
+  border: 4px solid rgb(85, 141, 0);
+}
+
 /* BUYABLES */
 /* General buyable button design */
 .buyablesUpgradeButtonsGroup {
@@ -506,7 +685,7 @@ button:hover {
   border-radius: 12px;
 }
 
-/* Hidden intermediate upgrade (not unlocked yet)*/
+/* Hidden intermediate upgrades (not unlocked yet)*/
 .buyablesUpgradeButtons.bU-hidden {
   display: none;
 }
@@ -540,7 +719,7 @@ button:hover {
 .milestonesOuterGroup {
   display: flex;
   flex-wrap: wrap;
-  width: 90%;
+  width: 1700px;
   height: 640px;
   justify-content: center;
   align-content: flex-start;
@@ -549,7 +728,8 @@ button:hover {
   margin-left: auto;
   margin-right: auto;
 }
-  .milestonesLeftArrow {
+
+  .milestonesArrow {
     display: flex;
     flex-wrap: wrap;
     width: 80px;
@@ -559,8 +739,14 @@ button:hover {
     align-items: center;
     margin-left: auto;
     margin-right: auto;
+    cursor: pointer;
     border: 4px solid rgb(108, 108, 108);
     border-radius: 100%;
+  }
+
+  .milestoneArrow {
+    font-size: 48px;
+    user-select: none;
   }
 
   .milestonesInnerGroup {
@@ -576,25 +762,6 @@ button:hover {
     margin-left: auto;
     margin-right: auto;
   }
-
-  .milestonesRightArrow {
-    display: flex;
-    flex-wrap: wrap;
-    width: 80px;
-    height: 80px;
-    justify-content: center;
-    align-content: center;
-    align-items: center;
-    margin-left: auto;
-    margin-right: auto;
-    border: 4px solid rgb(108, 108, 108);
-    border-radius: 100%;
-  }
-
-.milestoneArrow {
-  font-size: 48px;
-  user-select: none;
-}
 
 .milestonesCapsuleContainer {
   display: flex;
@@ -733,7 +900,355 @@ button:hover {
       }
 
 
+/* RESEARCH */
+.researchOuterGroup {
+  display: flex;
+  flex-wrap: wrap;
+  width: 1400px;
+  height: 640px;
+  justify-content: center;
+  align-content: flex-start;
+  align-items: center;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+}
 
+.researchArrow {
+  display: flex;
+  flex-wrap: wrap;
+  width: 80px;
+  height: 80px;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+  cursor: pointer;
+  border: 4px solid rgb(108, 108, 108);
+  border-radius: 100%;
+}
+
+.researchArrowText {
+  font-size: 48px;
+  user-select: none;
+}
+
+.researchInnerGroup {
+  display: flex;
+  flex-wrap: wrap;
+  width: 1100px;
+  height: 100%;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-content: center;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.researchTitle {
+  color:rgb(164, 164, 164);
+  font-size: 36px;
+}
+
+.researchCapsuleContainer {
+  display: flex;
+  width: 1060px;
+  height: 500px;
+  flex-direction: column;
+  justify-content: center;
+  align-content: flex-start;
+  align-items: center;
+  row-gap: 40px;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.researchCapsule {
+  display: flex;
+  width: 1000px;
+  height: 200px;
+  justify-content: center;
+  align-content: flex-start;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+  border: 4px solid rgb(108, 108, 108);
+  border-radius: 12px;
+}
+
+.researchCapsuleHead {
+  display: flex;
+  width: 200px;
+  height: 200px;
+  flex-direction: column;
+  justify-content: center;
+  align-content: flex-start;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.researchCapsuleHead:hover {
+  cursor: pointer;
+}
+
+  .researchCapsuleTitle { 
+    position: relative;
+    top: 5%;
+    text-align: center;
+    font-size: 36px;
+    user-select: none;
+  }
+
+  .researchCapsuleToggle { 
+    position: relative;
+    top: 20%;
+    text-align: center;
+    font-size: 24px;
+    user-select: none;
+  }
+
+.researchSeparator1 {
+  height: 200px;
+  border: 2px solid rgb(108, 108, 108);
+}
+
+.researchCapsuleBody {
+  display: flex;
+  width: 800px;
+  height: 200px;
+  flex-direction: column;
+  justify-content: center;
+  align-content: flex-start;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+  .researchCapsuleDescriptionContainer {
+    display: flex;
+    width: 800px;
+    height: 148px;
+    justify-content: center;
+    align-content: flex-start;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+    .researchCapsuleDescription {
+      text-align: center;
+      font-size: 24px;
+    }
+
+  .researchSeparator2 {
+    width: 800px;
+    border: 2px solid rgb(108, 108, 108);
+  }
+
+  .researchCapsuleProgressBar {
+    display: flex;
+    width: 800px;
+    height: 48px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: rgb(33, 33, 33);
+    z-index: -1;
+  }
+
+  .researchCapsuleProgressFill {
+    position: relative;
+    height: 100%;
+    background-color: #4caf50;
+    width: 50%;
+    transition: width 0.3s ease;
+  }
+
+    .researchCapsuleProgressNumberContainer {
+      display: flex;
+      width: 400px;
+      height: 50px;
+      justify-content: left;
+      align-items: center;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+      .researchCapsuleProgressNumber {
+        margin-left: 10px;
+      }
+
+
+    .researchCapsuleProgressPerSecondContainer {
+      display: flex;
+      width: 400px;
+      height: 50px;
+      justify-content: right;
+      align-items: center;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+      .researchCapsuleProgressPerSecond {
+        margin-right: 10px;
+      }
+
+/* Active research design */
+.researchCapsule.researchActive {
+  border: 4px solid rgb(10, 204, 0);
+}
+
+.researchActive .researchSeparator1 {
+  border: 2px solid rgb(10, 204, 0);
+}
+
+.researchActive .researchSeparator2 {
+  border: 2px solid rgb(10, 204, 0);
+}
+
+.researchActive .researchCapsuleTitle {
+  color: rgb(10, 204, 0);
+}
+
+.researchActive .researchCapsuleToggle {
+  color: rgb(10, 204, 0);
+}
+
+.researchActive .researchCapsuleDescription {
+  color: rgb(10, 204, 0);
+}
+
+.researchActive .researchCapsuleProgressNumber {
+  color: rgb(10, 204, 0);
+}
+
+.researchActive .researchCapsuleProgressPerSecond {
+  color: rgb(10, 204, 0);
+}
+
+
+/* Finished research design */
+.researchCapsule.researchFinished {
+  pointer-events: none;
+  border: 4px solid rgb(255, 183, 0);
+  box-shadow: 0px 0px 10px 0px rgb(255, 183, 0);
+}
+
+.researchFinished .researchSeparator1 {
+  border: 2px solid rgb(255, 183, 0);
+}
+
+.researchFinished .researchSeparator2 {
+  border: 2px solid rgb(255, 183, 0);
+}
+
+.researchFinished .researchCapsuleTitle {
+  color: rgb(255, 183, 0);
+}
+
+.researchFinished .researchCapsuleToggle {
+  color: rgb(255, 183, 0);
+}
+
+.researchFinished .researchCapsuleDescription {
+  color: rgb(255, 183, 0);
+}
+
+.researchFinished .researchCapsuleProgressNumber {
+  color: rgb(255, 183, 0);
+}
+
+.researchFinished .researchCapsuleProgressPerSecond {
+  color: rgb(255, 183, 0);
+}
+
+/* PRESTIGE */
+#reset1_bg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(25, 25, 25);
+  z-index: 1;
+  display: none;
+}
+
+.prestigeGroup {
+  display: flex;
+  flex-wrap: wrap;
+  width: 1500px;
+  height: 600px;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  column-gap: 40px;
+  row-gap: 0px;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#escapeButton {
+  position: relative;
+  width: 400px;
+  height: 240px;
+  font-family: "Roboto Mono";
+  font-size: 82px;
+  background-color: rgb(33, 0, 64);
+  color: rgb(132, 0, 255);
+  border: 4px solid rgb(132, 0, 255);
+  border-radius: 12px;
+  z-index: 2;
+}
+
+#escapeButton:hover {
+  background-color: rgb(21, 0, 41);
+  color: rgb(100, 0, 194);
+  border: 4px solid rgb(132, 0, 255);
+  box-shadow: 0px 0px 60px 0px rgb(40, 0, 79);
+}
+
+#slash {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 400px;
+  margin-left: -10px;
+  margin-top: -200px;
+  background-color: rgb(25, 25, 25);
+  transform: rotate(20deg);
+  display: none;
+}
+
+#escapeMessage {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: "Roboto Mono";
+  font-size: 68px;
+  color: white;
+  padding: 20px;
+  border-radius: 8px;
+  z-index: 4;
+  opacity: 0;
+  transition: opacity 3s ease-out;
+}
+
+#escapeMessage.show {
+  display: block;
+  opacity: 1;
+}
+
+#escapeMessage.fade-out {
+  opacity: 0;
+}
+
+/* SETTINGS */
 .settingsGroup {
   display: flex;
   flex-wrap: wrap;
@@ -834,7 +1349,6 @@ button:hover {
 .statsHighlight {
   color: rgb(125, 125, 125);
 }
-
 
 .endgameText {
   margin-top: 25px;
