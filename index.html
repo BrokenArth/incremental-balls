@@ -19,10 +19,21 @@
 
   <body>
 
+    <div id="reset1_bg"></div>
+
     <!-- Ball count -->
-    <p class="textCenterHorizontal">
+    <p class="textCenterHorizontal ballText">
       You have <span id="ballCount">0.00</span> balls (<span class="perSecondCount-1">0.00</span>/s)
     </p>
+
+    <!-- Balls reaction-->
+    <button type="button" class="secretTab">balls</button>
+    <div id="liveReaction">
+      <div id="liveTextContainer">
+        <p id="liveText">LIVE BALLS REACTION</p>
+      </div>
+      <div id="liveContainer"></div>
+    </div>
     
     <!-- Ball clicker -->
     <button type="button" class="centerHorizontal ballButtons" id="ballIncrease" onclick="getMoreBalls()">Get more</button>
@@ -31,6 +42,8 @@
     <div class="tabs">
       <button data-tab-target="#tab-upgrades" type="button" class="tabButtons" id="upgradesTab">Upgrades</button>
       <button data-tab-target="#tab-milestones" type="button" class="tabButtons" id="milestonesTab">Milestones</button>
+      <button data-tab-target="#tab-research" type="button" class="tabButtons" id="researchTab">Research</button>
+      <button data-tab-target="#tab-prestige" type="button" class="tabButtons" id="prestigeTab">Escape</button>
       <button data-tab-target="#tab-settings" type="button" class="tabButtons" id="settingsTab">Settings</button>
     </div>
 
@@ -114,7 +127,6 @@
           </div>
         </div>
 
-        <!-- Intermediate upgrades container -->
         <div id="upgrades-intermediate" data-upgrades-content>
 
           <p class="textCenterHorizontal upgradesTitle">Intermediate Upgrades</p>
@@ -190,7 +202,7 @@
             <button type="button" class="centerHorizontal ballButtons upgradeButtons intermediateUpgradeButtons iU-hidden"
             id="intermediateUpgrade12" onclick="intermediateUpgrade12()">
               <span class="upgradeDescription">Unlock <strong>Advanced Upgrades</strong></span>
-              <span class="upgradeCost">Cost: 50M balls</span>
+              <span class="upgradeCost">Cost: 25M balls</span>
             </button>
 
           </div>
@@ -229,7 +241,7 @@
 
             <button type="button" class="centerHorizontal ballButtons upgradeButtons advancedUpgradeButtons"
             id="advancedUpgrade5" onclick="advancedUpgrade5()">
-              <span class="upgradeDescription">Multiply base by 1 + sqrt(upgrades)/4</span>
+              <span class="upgradeDescription">Multiply base by 1 + sqrt(upgrades)/8</span>
               <span class="upgradeCost">Cost: 4B balls</span>
             </button>
 
@@ -287,14 +299,90 @@
 
             <button type="button" class="centerHorizontal ballButtons upgradeButtons expertUpgradeButtons"
             id="expertUpgrade1" onclick="expertUpgrade1()">
-              <span class="upgradeDescription">Raise base by 1.05</span>
+              <span class="upgradeDescription">Raise base by 1.03</span>
               <span class="upgradeCost">Cost: 50Qa balls</span>
             </button>
 
             <button type="button" class="centerHorizontal ballButtons upgradeButtons expertUpgradeButtons"
             id="expertUpgrade2" onclick="expertUpgrade2()">
-              <span class="upgradeDescription">Raise multi by 1.05</span>
+              <span class="upgradeDescription">Raise multi by 1.03</span>
               <span class="upgradeCost">Cost: 4Qi balls</span>
+            </button>
+
+            <button type="button" class="centerHorizontal ballButtons upgradeButtons expertUpgradeButtons"
+            id="expertUpgrade3" onclick="expertUpgrade3()">
+              <span class="upgradeDescription">Increase tickspeed by 1.5x</span>
+              <span class="upgradeCost">Cost: 1Sx balls</span>
+            </button>
+
+            <button type="button" class="centerHorizontal ballButtons upgradeButtons expertUpgradeButtons"
+            id="expertUpgrade4" onclick="expertUpgrade4()">
+              <span class="upgradeDescription">Multiply base by (ln(1+multi))^(1/5)</span>
+              <span class="upgradeCost">Cost: 5Sx balls</span>
+            </button>
+
+            <button type="button" class="centerHorizontal ballButtons upgradeButtons expertUpgradeButtons"
+            id="expertUpgrade5" onclick="expertUpgrade5()">
+              <span class="upgradeDescription">Multiply upgrades bought by ln(1+milestones) ^(1/16)</span>
+              <span class="upgradeCost">Cost: 80Sx balls</span>
+            </button>
+
+            <button type="button" class="centerHorizontal ballButtons upgradeButtons expertUpgradeButtons eU-hidden"
+            id="expertUpgrade6" onclick="expertUpgrade6()">
+              <span class="upgradeDescription">Increase base XP gain by 4</span>
+              <span class="upgradeCost">Cost: 1.5Sp balls</span>
+            </button>
+
+            <button type="button" class="centerHorizontal ballButtons upgradeButtons expertUpgradeButtons eU-hidden"
+            id="expertUpgrade7" onclick="expertUpgrade7()">
+              <span class="upgradeDescription">Increase XP multi by 1</span>
+              <span class="upgradeCost">Cost: 20Sp balls</span>
+            </button>
+
+            <button type="button" class="centerHorizontal ballButtons upgradeButtons expertUpgradeButtons eU-hidden"
+            id="expertUpgrade8" onclick="expertUpgrade8()">
+              <span class="upgradeDescription">Increase BPS exp by (researches*0.005)</span>
+              <span class="upgradeCost">Cost: 300Sp balls</span>
+            </button>
+
+            <button type="button" class="centerHorizontal ballButtons upgradeButtons expertUpgradeButtons eU-hidden"
+            id="expertUpgrade9" onclick="expertUpgrade9()">
+              <span class="upgradeDescription">Multiply XP gain multi by 3</span>
+              <span class="upgradeCost">Cost: 100Oc balls</span>
+            </button>
+
+            <button type="button" class="centerHorizontal ballButtons upgradeButtons expertUpgradeButtons eU-hidden"
+            id="expertUpgrade10" onclick="expertUpgrade10()">
+              <span class="upgradeDescription">Increase XP exponent by 0.05</span>
+              <span class="upgradeCost">Cost: 25No balls</span>
+            </button>
+
+            <button type="button" class="centerHorizontal ballButtons upgradeButtons expertUpgradeButtons eU-hidden"
+            id="expertUpgrade11" onclick="expertUpgrade11()">
+              <span class="upgradeDescription">Multiply base XP gain by 2.5</span>
+              <span class="upgradeCost">Cost: 300No balls</span>
+            </button>
+
+            <button type="button" class="centerHorizontal ballButtons upgradeButtons expertUpgradeButtons eU-hidden"
+            id="expertUpgrade12" onclick="expertUpgrade12()">
+              <span class="upgradeDescription">Unlock <strong>Master Upgrades</strong></span>
+              <span class="upgradeCost">Cost: 25Dc balls</span>
+            </button>
+
+          </div>
+
+        </div>
+
+        <div id="upgrades-master" data-upgrades-content>
+
+          <p class="textCenterHorizontal upgradesTitle">Master Upgrades</p>
+
+          <div class="masterUpgradeButtonsGroup">
+
+            <button type="button" class="centerHorizontal ballButtons upgradeButtons masterUpgradeButtons"
+            id="masterUpgrade1" onclick="masterUpgrade1()">
+              <span class="upgradeDescription">Do something</span>
+              <span class="upgradeCost">Cost: 10Dc balls</span>
             </button>
 
           </div>
@@ -351,14 +439,14 @@
 
             <button type="button" class="centerHorizontal ballButtons upgradeButtons buyablesUpgradeButtons bU-hidden"
             id="buyablesUpgrade7" onclick="buyablesUpgrade7()">
-              <span class="upgradeDescription">Raise base BPS to 1.01</span>
+              <span class="upgradeDescription">Raise base BPS by 1.01</span>
               <span class="upgradeCost">Cost: <span id="buyableCost7">5.00Qi</span> balls</span>
               <span class="purchasedCount"><span id="buyableCount7">0</span>/10</span>
             </button>
 
             <button type="button" class="centerHorizontal ballButtons upgradeButtons buyablesUpgradeButtons bU-hidden"
             id="buyablesUpgrade8" onclick="buyablesUpgrade8()">
-              <span class="upgradeDescription">Raise BPS multi to 1.01</span>
+              <span class="upgradeDescription">Raise BPS multi by 1.01</span>
               <span class="upgradeCost">Cost: <span id="buyableCost8">10.00Qi</span> balls</span>
               <span class="purchasedCount"><span id="buyableCount8">0</span>/10</span>
             </button>
@@ -370,6 +458,27 @@
               <span class="purchasedCount"><span id="buyableCount9">0</span>/5</span>
             </button>
 
+            <button type="button" class="centerHorizontal ballButtons upgradeButtons buyablesUpgradeButtons bU-hidden"
+            id="buyablesUpgrade10" onclick="buyablesUpgrade10()">
+              <span class="upgradeDescription">Increase base XP gain by 5</span>
+              <span class="upgradeCost">Cost: <span id="buyableCost10">250.00Sp</span> balls</span>
+              <span class="purchasedCount"><span id="buyableCount10">0</span>/20</span>
+            </button>
+
+            <button type="button" class="centerHorizontal ballButtons upgradeButtons buyablesUpgradeButtons bU-hidden"
+            id="buyablesUpgrade11" onclick="buyablesUpgrade11()">
+              <span class="upgradeDescription">Increase XP multi by 2</span>
+              <span class="upgradeCost">Cost: <span id="buyableCost11">500.00Sp</span> balls</span>
+              <span class="purchasedCount"><span id="buyableCount11">0</span>/10</span>
+            </button>
+
+            <button type="button" class="centerHorizontal ballButtons upgradeButtons buyablesUpgradeButtons bU-hidden"
+            id="buyablesUpgrade12" onclick="buyablesUpgrade12()">
+              <span class="upgradeDescription">Increase XP exponent by 0.01</span>
+              <span class="upgradeCost">Cost: <span id="buyableCost12">1.00Oc</span> balls</span>
+              <span class="purchasedCount"><span id="buyableCount12">0</span>/10</span>
+            </button>
+
           </div>
 
         </div>
@@ -379,6 +488,7 @@
           <button data-upgrades-target="#upgrades-intermediate" type="button" class="upgradesTabButtonsDefault upgradesTabButtons intermediateUpgradeButtons" id="intermediateUpgradesTab">Intermediate</button>
           <button data-upgrades-target="#upgrades-advanced" type="button" class="upgradesTabButtonsDefault upgradesTabButtons hiddenUpgradesTab advancedUpgradeButtons" id="advancedUpgradesTab">Advanced</button>
           <button data-upgrades-target="#upgrades-expert" type="button" class="upgradesTabButtonsDefault upgradesTabButtons hiddenUpgradesTab expertUpgradeButtons" id="expertUpgradesTab">Expert</button>
+          <button data-upgrades-target="#upgrades-master" type="button" class="upgradesTabButtonsDefault upgradesTabButtons hiddenUpgradesTab masterUpgradeButtons" id="masterUpgradesTab">Master</button>
           <div class="upgradesTabButtonsSeparator inactive"></div>
           <button data-upgrades-target="#upgrades-buyables" type="button" class="upgradesTabButtonsDefault upgradesTabButtons hiddenUpgradesTab buyablesUpgradeButtons" id="buyablesUpgradesTab">Buyables</button>
         </div>
@@ -391,7 +501,7 @@
         <!-- page 1 -->
         <div class="milestonesOuterGroup" id="milestonesPage_1">
           
-          <div class="milestonesLeftArrow" id="milestonesLeftArrow_1">
+          <div class="milestonesArrow milestonesLeftArrow" id="milestonesLeftArrow_1">
           <p class="milestoneArrow"> < </p>
           </div>
 
@@ -444,7 +554,7 @@
             </div>
           </div>
 
-          <div class="milestonesRightArrow" id="milestonesRightArrow_1">
+          <div class="milestonesArrow milestonesRightArrow" id="milestonesRightArrow_1">
             <p class="milestoneArrow"> > </p>
           </div>
 
@@ -453,7 +563,7 @@
         <!-- page 2-->
         <div class="milestonesOuterGroup" id="milestonesPage_2">
           
-          <div class="milestonesLeftArrow" id="milestonesLeftArrow_2">
+          <div class="milestonesArrow milestonesLeftArrow" id="milestonesLeftArrow_2">
           <p class="milestoneArrow"> < </p>
           </div>
 
@@ -477,9 +587,9 @@
                 <p class="milestoneCapsuleTitle">M6</p>
                 <div class="capsuleSeparator"></div>
                 <div class="milestoneCapsuleFlex">
-                  <div class="milestoneCapsuleRewardSector"> <p class="milestoneCapsuleReward">Unlock <strong>Help</strong></p> </div>
+                  <div class="milestoneCapsuleRewardSector"> <p class="milestoneCapsuleReward">Unlock <strong>Research</strong></p> </div>
                   <div class="milestoneCapsuleInnerSeparator"></div>
-                  <div class="milestoneCapsuleRequirementSector"> <p class="milestoneCapsuleRequirement">Get 250Sx balls</p> </div>
+                  <div class="milestoneCapsuleRequirementSector"> <p class="milestoneCapsuleRequirement">Get 1Sp balls</p> </div>
                 </div>
               </div>
 
@@ -487,7 +597,7 @@
                 <p class="milestoneCapsuleTitle">M7</p>
                 <div class="capsuleSeparator"></div>
                 <div class="milestoneCapsuleFlex">
-                  <div class="milestoneCapsuleRewardSector"> <p class="milestoneCapsuleReward">I'm being held</p> </div>
+                  <div class="milestoneCapsuleRewardSector"> <p class="milestoneCapsuleReward">Unlock 3 new buyables</p> </div>
                   <div class="milestoneCapsuleInnerSeparator"></div>
                   <div class="milestoneCapsuleRequirementSector"> <p class="milestoneCapsuleRequirement">Get 1Oc balls</p> </div>
                 </div>
@@ -497,16 +607,16 @@
                 <p class="milestoneCapsuleTitle">M8</p>
                 <div class="capsuleSeparator"></div>
                 <div class="milestoneCapsuleFlex">
-                  <div class="milestoneCapsuleRewardSector"> <p class="milestoneCapsuleReward">Captive</p> </div>
+                  <div class="milestoneCapsuleRewardSector"> <p class="milestoneCapsuleReward">Help</p> </div>
                   <div class="milestoneCapsuleInnerSeparator"></div>
-                  <div class="milestoneCapsuleRequirementSector"> <p class="milestoneCapsuleRequirement">Get 1Dc balls</p> </div>
+                  <div class="milestoneCapsuleRequirementSector"> <p class="milestoneCapsuleRequirement">Get 100Dc balls</p> </div>
                 </div>
               </div>
 
             </div>
           </div>
 
-          <div class="milestonesRightArrow" id="milestonesRightArrow_2">
+          <div class="milestonesArrow milestonesRightArrow" id="milestonesRightArrow_2">
             <p class="milestoneArrow"> > </p>
           </div>
 
@@ -515,7 +625,7 @@
         <!-- page 3-->
         <div class="milestonesOuterGroup" id="milestonesPage_3">
           
-          <div class="milestonesLeftArrow" id="milestonesLeftArrow_3">
+          <div class="milestonesArrow milestonesLeftArrow" id="milestonesLeftArrow_3">
           <p class="milestoneArrow"> < </p>
           </div>
 
@@ -529,9 +639,9 @@
                 <p class="milestoneCapsuleTitle">M9</p>
                 <div class="capsuleSeparator"></div>
                 <div class="milestoneCapsuleFlex">
-                  <div class="milestoneCapsuleRewardSector"> <p class="milestoneCapsuleReward">Unlock 4 new ahhh</p> </div>
+                  <div class="milestoneCapsuleRewardSector"> <p class="milestoneCapsuleReward">nothing</p> </div>
                   <div class="milestoneCapsuleInnerSeparator"></div>
-                  <div class="milestoneCapsuleRequirementSector"> <p class="milestoneCapsuleRequirement">Get 5Qi balls</p> </div>
+                  <div class="milestoneCapsuleRequirementSector"> <p class="milestoneCapsuleRequirement">Get infinity balls</p> </div>
                 </div>
               </div>
               
@@ -539,9 +649,9 @@
                 <p class="milestoneCapsuleTitle">M10</p>
                 <div class="capsuleSeparator"></div>
                 <div class="milestoneCapsuleFlex">
-                  <div class="milestoneCapsuleRewardSector"> <p class="milestoneCapsuleReward">Unlock <strong>Help</strong></p> </div>
+                  <div class="milestoneCapsuleRewardSector"> <p class="milestoneCapsuleReward">Nothing</p> </div>
                   <div class="milestoneCapsuleInnerSeparator"></div>
-                  <div class="milestoneCapsuleRequirementSector"> <p class="milestoneCapsuleRequirement">Get 250Sx balls</p> </div>
+                  <div class="milestoneCapsuleRequirementSector"> <p class="milestoneCapsuleRequirement">Get Infinity balls</p> </div>
                 </div>
               </div>
 
@@ -549,9 +659,9 @@
                 <p class="milestoneCapsuleTitle">M11</p>
                 <div class="capsuleSeparator"></div>
                 <div class="milestoneCapsuleFlex">
-                  <div class="milestoneCapsuleRewardSector"> <p class="milestoneCapsuleReward">I'm being held</p> </div>
+                  <div class="milestoneCapsuleRewardSector"> <p class="milestoneCapsuleReward">NOTHING</p> </div>
                   <div class="milestoneCapsuleInnerSeparator"></div>
-                  <div class="milestoneCapsuleRequirementSector"> <p class="milestoneCapsuleRequirement">Get 1Oc balls</p> </div>
+                  <div class="milestoneCapsuleRequirementSector"> <p class="milestoneCapsuleRequirement">Get INFINITY balls</p> </div>
                 </div>
               </div>
 
@@ -559,18 +669,625 @@
                 <p class="milestoneCapsuleTitle">M12</p>
                 <div class="capsuleSeparator"></div>
                 <div class="milestoneCapsuleFlex">
-                  <div class="milestoneCapsuleRewardSector"> <p class="milestoneCapsuleReward">Captive</p> </div>
+                  <div class="milestoneCapsuleRewardSector"> <p class="milestoneCapsuleReward"><strong>NOTHING</strong></p> </div>
                   <div class="milestoneCapsuleInnerSeparator"></div>
-                  <div class="milestoneCapsuleRequirementSector"> <p class="milestoneCapsuleRequirement">Get 1Dc balls</p> </div>
+                  <div class="milestoneCapsuleRequirementSector"> <p class="milestoneCapsuleRequirement">Get <strong>INFINITY</strong> balls</p> </div>
                 </div>
               </div>
 
             </div>
           </div>
 
-          <div class="milestonesRightArrow" id="milestonesRightArrow_3">
+          <div class="milestonesArrow milestonesRightArrow" id="milestonesRightArrow_3">
             <p class="milestoneArrow"> > </p>
           </div>
+
+        </div>
+
+      </div>
+
+      <!-- Research Tab -->
+      <div id="tab-research" data-tab-content> <!-- AHHHHHHHH -->
+
+        <!-- page 1 -->
+        <div class="researchOuterGroup" id="researchPage_1">
+
+          <div class="researchArrow researchLeftArrow" id="researchLeftArrow_1">
+            <p class="researchArrowText"> < </p>
+          </div>
+
+          <div class="researchInnerGroup">
+            <p class="textCenterHorizontal researchTitle">Research Page 1</p>
+            
+            <!-- capsule layout -->
+            <div class="researchCapsuleContainer">
+
+              <div class="researchCapsule" id="researchCapsule1">
+                <div class="researchCapsuleHead">
+                  <p class="researchCapsuleTitle">R1</p>
+                  <p class="researchCapsuleToggle">Inactive</p>
+                </div>
+                <div class="researchSeparator1"></div>
+                <div class="researchCapsuleBody">
+                  <div class="researchCapsuleDescriptionContainer">
+                    <p class="researchCapsuleDescription">Unlock 7 new upgrades</p>
+                  </div>
+                  <div class="researchSeparator2"></div>
+                  <div class="researchCapsuleProgressBar">
+                    <div class="researchCapsuleProgress">
+                      <div class="researchCapsuleProgressFill"></div>
+                    </div>
+                    <div class="researchCapsuleProgressNumberContainer">
+                      <p class="researchCapsuleProgressNumber">XP <span class="researchProgress" id="researchProgress1">0.00</span>/<span class="researchLimit" id="researchLimit1">50</span></p>
+                    </div>
+                    <div class="researchCapsuleProgressPerSecondContainer">
+                      <p class="researchCapsuleProgressPerSecond"><span class="researchProgressPerSecond" id="researchProgressPerSecond1">0</span>/s</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="researchCapsule" id="researchCapsule2">
+                <div class="researchCapsuleHead">
+                  <p class="researchCapsuleTitle">R2</p>
+                  <p class="researchCapsuleToggle">Inactive</p>
+                </div>
+                <div class="researchSeparator1"></div>
+                <div class="researchCapsuleBody">
+                  <div class="researchCapsuleDescriptionContainer">
+                    <p class="researchCapsuleDescription">Multiply BPS multi by 1.4 every 2 researches finished</strong></p>
+                  </div>
+                  <div class="researchSeparator2"></div>
+                  <div class="researchCapsuleProgressBar">
+                    <div class="researchCapsuleProgress">
+                      <div class="researchCapsuleProgressFill"></div>
+                    </div>
+                    <div class="researchCapsuleProgressNumberContainer">
+                      <p class="researchCapsuleProgressNumber">XP <span class="researchProgress" id="researchProgress2">0.00</span>/<span class="researchLimit" id="researchLimit2">350</span></p>
+                    </div>
+                    <div class="researchCapsuleProgressPerSecondContainer">
+                      <p class="researchCapsuleProgressPerSecond"><span class="researchProgressPerSecond" id="researchProgressPerSecond2">0</span>/s</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="researchArrow researchRightArrow" id="researchRightArrow_1">
+            <p class="researchArrowText"> > </p>
+          </div>
+
+        </div>
+
+        <!-- page 2 -->
+        <div class="researchOuterGroup" id="researchPage_2">
+
+          <div class="researchArrow researchLeftArrow" id="researchLeftArrow_2">
+            <p class="researchArrowText"> < </p>
+          </div>
+
+          <div class="researchInnerGroup">
+            <p class="textCenterHorizontal researchTitle">Research Page 2</p>
+            
+            <!-- capsule layout -->
+            <div class="researchCapsuleContainer">
+
+              <div class="researchCapsule" id="researchCapsule3">
+                <div class="researchCapsuleHead">
+                  <p class="researchCapsuleTitle">R3</p>
+                  <p class="researchCapsuleToggle">Inactive</p>
+                </div>
+                <div class="researchSeparator1"></div>
+                <div class="researchCapsuleBody">
+                  <div class="researchCapsuleDescriptionContainer">
+                    <p class="researchCapsuleDescription">Increase XP gain by 3 for every research done</p>
+                  </div>
+                  <div class="researchSeparator2"></div>
+                  <div class="researchCapsuleProgressBar">
+                    <div class="researchCapsuleProgress">
+                      <div class="researchCapsuleProgressFill"></div>
+                    </div>
+                    <div class="researchCapsuleProgressNumberContainer">
+                      <p class="researchCapsuleProgressNumber">XP <span class="researchProgress" id="researchProgress3">0.00</span>/<span class="researchLimit" id="researchLimit3">1.5k</span></p>
+                    </div>
+                    <div class="researchCapsuleProgressPerSecondContainer">
+                      <p class="researchCapsuleProgressPerSecond"><span class="researchProgressPerSecond" id="researchProgressPerSecond3">0</span>/s</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="researchCapsule" id="researchCapsule4">
+                <div class="researchCapsuleHead">
+                  <p class="researchCapsuleTitle">R4</p>
+                  <p class="researchCapsuleToggle">Inactive</p>
+                </div>
+                <div class="researchSeparator1"></div>
+                <div class="researchCapsuleBody">
+                  <div class="researchCapsuleDescriptionContainer">
+                    <p class="researchCapsuleDescription">Raise base BPS by 1.02</p>
+                  </div>
+                  <div class="researchSeparator2"></div>
+                  <div class="researchCapsuleProgressBar">
+                    <div class="researchCapsuleProgress">
+                      <div class="researchCapsuleProgressFill"></div>
+                    </div>
+                    <div class="researchCapsuleProgressNumberContainer">
+                      <p class="researchCapsuleProgressNumber">XP <span class="researchProgress" id="researchProgress4">0.00</span>/<span class="researchLimit" id="researchLimit4">1.5k</span></p>
+                    </div>
+                    <div class="researchCapsuleProgressPerSecondContainer">
+                      <p class="researchCapsuleProgressPerSecond"><span class="researchProgressPerSecond" id="researchProgressPerSecond4">0</span>/s</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="researchArrow researchRightArrow" id="researchRightArrow_2">
+            <p class="researchArrowText"> > </p>
+          </div>
+
+        </div>
+
+        <!-- page 3 -->
+        <div class="researchOuterGroup" id="researchPage_3">
+
+          <div class="researchArrow researchLeftArrow" id="researchLeftArrow_3">
+            <p class="researchArrowText"> < </p>
+          </div>
+
+          <div class="researchInnerGroup">
+            <p class="textCenterHorizontal researchTitle">Research Page 3</p>
+            
+            <!-- capsule layout -->
+            <div class="researchCapsuleContainer">
+
+              <div class="researchCapsule" id="researchCapsule5">
+                <div class="researchCapsuleHead">
+                  <p class="researchCapsuleTitle">R5</p>
+                  <p class="researchCapsuleToggle">Inactive</p>
+                </div>
+                <div class="researchSeparator1"></div>
+                <div class="researchCapsuleBody">
+                  <div class="researchCapsuleDescriptionContainer">
+                    <p class="researchCapsuleDescription">Increase XP gain by milestones unlocked</p>
+                  </div>
+                  <div class="researchSeparator2"></div>
+                  <div class="researchCapsuleProgressBar">
+                    <div class="researchCapsuleProgress">
+                      <div class="researchCapsuleProgressFill"></div>
+                    </div>
+                    <div class="researchCapsuleProgressNumberContainer">
+                      <p class="researchCapsuleProgressNumber">XP <span class="researchProgress" id="researchProgress5">0.00</span>/<span class="researchLimit" id="researchLimit5">10k</span></p>
+                    </div>
+                    <div class="researchCapsuleProgressPerSecondContainer">
+                      <p class="researchCapsuleProgressPerSecond"><span class="researchProgressPerSecond" id="researchProgressPerSecond5">0</span>/s</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="researchCapsule" id="researchCapsule6">
+                <div class="researchCapsuleHead">
+                  <p class="researchCapsuleTitle">R6</p>
+                  <p class="researchCapsuleToggle">Inactive</p>
+                </div>
+                <div class="researchSeparator1"></div>
+                <div class="researchCapsuleBody">
+                  <div class="researchCapsuleDescriptionContainer">
+                    <p class="researchCapsuleDescription">Multiply base BPS by floor(1+ln(sqrt(balls))/50)</strong></p>
+                  </div>
+                  <div class="researchSeparator2"></div>
+                  <div class="researchCapsuleProgressBar">
+                    <div class="researchCapsuleProgress">
+                      <div class="researchCapsuleProgressFill"></div>
+                    </div>
+                    <div class="researchCapsuleProgressNumberContainer">
+                      <p class="researchCapsuleProgressNumber">XP <span class="researchProgress" id="researchProgress6">0.00</span>/<span class="researchLimit" id="researchLimit6">25k</span></p>
+                    </div>
+                    <div class="researchCapsuleProgressPerSecondContainer">
+                      <p class="researchCapsuleProgressPerSecond"><span class="researchProgressPerSecond" id="researchProgressPerSecond6">0</span>/s</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="researchArrow researchRightArrow" id="researchRightArrow_3">
+            <p class="researchArrowText"> > </p>
+          </div>
+
+        </div>
+
+        <!-- page 4 -->
+        <div class="researchOuterGroup" id="researchPage_4">
+
+          <div class="researchArrow researchLeftArrow" id="researchLeftArrow_4">
+            <p class="researchArrowText"> < </p>
+          </div>
+
+          <div class="researchInnerGroup">
+            <p class="textCenterHorizontal researchTitle">Research Page 4</p>
+            
+            <!-- capsule layout -->
+            <div class="researchCapsuleContainer">
+
+              <div class="researchCapsule" id="researchCapsule7">
+                <div class="researchCapsuleHead">
+                  <p class="researchCapsuleTitle">R7</p>
+                  <p class="researchCapsuleToggle">Inactive</p>
+                </div>
+                <div class="researchSeparator1"></div>
+                <div class="researchCapsuleBody">
+                  <div class="researchCapsuleDescriptionContainer">
+                    <p class="researchCapsuleDescription">Increase tickspeed by 1.5x</p>
+                  </div>
+                  <div class="researchSeparator2"></div>
+                  <div class="researchCapsuleProgressBar">
+                    <div class="researchCapsuleProgress">
+                      <div class="researchCapsuleProgressFill"></div>
+                    </div>
+                    <div class="researchCapsuleProgressNumberContainer">
+                      <p class="researchCapsuleProgressNumber">XP <span class="researchProgress" id="researchProgress7">0.00</span>/<span class="researchLimit" id="researchLimit7">50k</span></p>
+                    </div>
+                    <div class="researchCapsuleProgressPerSecondContainer">
+                      <p class="researchCapsuleProgressPerSecond"><span class="researchProgressPerSecond" id="researchProgressPerSecond7">0</span>/s</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="researchCapsule" id="researchCapsule8">
+                <div class="researchCapsuleHead">
+                  <p class="researchCapsuleTitle">R8</p>
+                  <p class="researchCapsuleToggle">Inactive</p>
+                </div>
+                <div class="researchSeparator1"></div>
+                <div class="researchCapsuleBody">
+                  <div class="researchCapsuleDescriptionContainer">
+                    <p class="researchCapsuleDescription">Raise BPS multi by 1.01</p>
+                  </div>
+                  <div class="researchSeparator2"></div>
+                  <div class="researchCapsuleProgressBar">
+                    <div class="researchCapsuleProgress">
+                      <div class="researchCapsuleProgressFill"></div>
+                    </div>
+                    <div class="researchCapsuleProgressNumberContainer">
+                      <p class="researchCapsuleProgressNumber">XP <span class="researchProgress" id="researchProgress8">0.00</span>/<span class="researchLimit" id="researchLimit8">150k</span></p>
+                    </div>
+                    <div class="researchCapsuleProgressPerSecondContainer">
+                      <p class="researchCapsuleProgressPerSecond"><span class="researchProgressPerSecond" id="researchProgressPerSecond8">0</span>/s</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="researchArrow researchRightArrow" id="researchRightArrow_4">
+            <p class="researchArrowText"> > </p>
+          </div>
+
+        </div>
+
+        <!-- page 5 -->
+        <div class="researchOuterGroup" id="researchPage_5">
+
+          <div class="researchArrow researchLeftArrow" id="researchLeftArrow_5">
+            <p class="researchArrowText"> < </p>
+          </div>
+
+          <div class="researchInnerGroup">
+            <p class="textCenterHorizontal researchTitle">Research Page 5</p>
+            
+            <!-- capsule layout -->
+            <div class="researchCapsuleContainer">
+
+              <div class="researchCapsule" id="researchCapsule9">
+                <div class="researchCapsuleHead">
+                  <p class="researchCapsuleTitle">R9</p>
+                  <p class="researchCapsuleToggle">Inactive</p>
+                </div>
+                <div class="researchSeparator1"></div>
+                <div class="researchCapsuleBody">
+                  <div class="researchCapsuleDescriptionContainer">
+                    <p class="researchCapsuleDescription">Raise BPS base by 1+(researches*0.001)</p>
+                  </div>
+                  <div class="researchSeparator2"></div>
+                  <div class="researchCapsuleProgressBar">
+                    <div class="researchCapsuleProgress">
+                      <div class="researchCapsuleProgressFill"></div>
+                    </div>
+                    <div class="researchCapsuleProgressNumberContainer">
+                      <p class="researchCapsuleProgressNumber">XP <span class="researchProgress" id="researchProgress9">0.00</span>/<span class="researchLimit" id="researchLimit9">500k</span></p>
+                    </div>
+                    <div class="researchCapsuleProgressPerSecondContainer">
+                      <p class="researchCapsuleProgressPerSecond"><span class="researchProgressPerSecond" id="researchProgressPerSecond9">0</span>/s</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="researchCapsule" id="researchCapsule10">
+                <div class="researchCapsuleHead">
+                  <p class="researchCapsuleTitle">R10</p>
+                  <p class="researchCapsuleToggle">Inactive</p>
+                </div>
+                <div class="researchSeparator1"></div>
+                <div class="researchCapsuleBody">
+                  <div class="researchCapsuleDescriptionContainer">
+                    <p class="researchCapsuleDescription">Increase XP gain exponent by 0.05</strong></p>
+                  </div>
+                  <div class="researchSeparator2"></div>
+                  <div class="researchCapsuleProgressBar">
+                    <div class="researchCapsuleProgress">
+                      <div class="researchCapsuleProgressFill"></div>
+                    </div>
+                    <div class="researchCapsuleProgressNumberContainer">
+                      <p class="researchCapsuleProgressNumber">XP <span class="researchProgress" id="researchProgress10">0.00</span>/<span class="researchLimit" id="researchLimit10">500k</span></p>
+                    </div>
+                    <div class="researchCapsuleProgressPerSecondContainer">
+                      <p class="researchCapsuleProgressPerSecond"><span class="researchProgressPerSecond" id="researchProgressPerSecond10">0</span>/s</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="researchArrow researchRightArrow" id="researchRightArrow_5">
+            <p class="researchArrowText"> > </p>
+          </div>
+
+        </div>
+
+        <!-- page 6 -->
+        <div class="researchOuterGroup" id="researchPage_6">
+
+          <div class="researchArrow researchLeftArrow" id="researchLeftArrow_6">
+            <p class="researchArrowText"> < </p>
+          </div>
+
+          <div class="researchInnerGroup">
+            <p class="textCenterHorizontal researchTitle">Research Page 6</p>
+            
+            <!-- capsule layout -->
+            <div class="researchCapsuleContainer">
+
+              <div class="researchCapsule" id="researchCapsule11">
+                <div class="researchCapsuleHead">
+                  <p class="researchCapsuleTitle">R11</p>
+                  <p class="researchCapsuleToggle">Inactive</p>
+                </div>
+                <div class="researchSeparator1"></div>
+                <div class="researchCapsuleBody">
+                  <div class="researchCapsuleDescriptionContainer">
+                    <p class="researchCapsuleDescription">Increase tickspeed by 1.5x</p>
+                  </div>
+                  <div class="researchSeparator2"></div>
+                  <div class="researchCapsuleProgressBar">
+                    <div class="researchCapsuleProgress">
+                      <div class="researchCapsuleProgressFill"></div>
+                    </div>
+                    <div class="researchCapsuleProgressNumberContainer">
+                      <p class="researchCapsuleProgressNumber">XP <span class="researchProgress" id="researchProgress11">0.00</span>/<span class="researchLimit" id="researchLimit11">2.5M</span></p>
+                    </div>
+                    <div class="researchCapsuleProgressPerSecondContainer">
+                      <p class="researchCapsuleProgressPerSecond"><span class="researchProgressPerSecond" id="researchProgressPerSecond11">0</span>/s</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="researchCapsule" id="researchCapsule12">
+                <div class="researchCapsuleHead">
+                  <p class="researchCapsuleTitle">R12</p>
+                  <p class="researchCapsuleToggle">Inactive</p>
+                </div>
+                <div class="researchSeparator1"></div>
+                <div class="researchCapsuleBody">
+                  <div class="researchCapsuleDescriptionContainer">
+                    <p class="researchCapsuleDescription">Multiply BPS base by 1.06 every 3 researches finished</p>
+                  </div>
+                  <div class="researchSeparator2"></div>
+                  <div class="researchCapsuleProgressBar">
+                    <div class="researchCapsuleProgress">
+                      <div class="researchCapsuleProgressFill"></div>
+                    </div>
+                    <div class="researchCapsuleProgressNumberContainer">
+                      <p class="researchCapsuleProgressNumber">XP <span class="researchProgress" id="researchProgress12">0.00</span>/<span class="researchLimit" id="researchLimit12">5M</span></p>
+                    </div>
+                    <div class="researchCapsuleProgressPerSecondContainer">
+                      <p class="researchCapsuleProgressPerSecond"><span class="researchProgressPerSecond" id="researchProgressPerSecond12">0</span>/s</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="researchArrow researchRightArrow" id="researchRightArrow_6">
+            <p class="researchArrowText"> > </p>
+          </div>
+
+        </div>
+
+        <!-- page 7 -->
+        <div class="researchOuterGroup" id="researchPage_7">
+
+          <div class="researchArrow researchLeftArrow" id="researchLeftArrow_7">
+            <p class="researchArrowText"> < </p>
+          </div>
+
+          <div class="researchInnerGroup">
+            <p class="textCenterHorizontal researchTitle">Research Page 7</p>
+            
+            <!-- capsule layout -->
+            <div class="researchCapsuleContainer">
+
+              <div class="researchCapsule" id="researchCapsule13">
+                <div class="researchCapsuleHead">
+                  <p class="researchCapsuleTitle">R13</p>
+                  <p class="researchCapsuleToggle">Inactive</p>
+                </div>
+                <div class="researchSeparator1"></div>
+                <div class="researchCapsuleBody">
+                  <div class="researchCapsuleDescriptionContainer">
+                    <p class="researchCapsuleDescription">Increase base XP gain by floor(log(1+BPS))</p>
+                  </div>
+                  <div class="researchSeparator2"></div>
+                  <div class="researchCapsuleProgressBar">
+                    <div class="researchCapsuleProgress">
+                      <div class="researchCapsuleProgressFill"></div>
+                    </div>
+                    <div class="researchCapsuleProgressNumberContainer">
+                      <p class="researchCapsuleProgressNumber">XP <span class="researchProgress" id="researchProgress13">0.00</span>/<span class="researchLimit" id="researchLimit13">10M</span></p>
+                    </div>
+                    <div class="researchCapsuleProgressPerSecondContainer">
+                      <p class="researchCapsuleProgressPerSecond"><span class="researchProgressPerSecond" id="researchProgressPerSecond13">0</span>/s</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="researchCapsule" id="researchCapsule14">
+                <div class="researchCapsuleHead">
+                  <p class="researchCapsuleTitle">R14</p>
+                  <p class="researchCapsuleToggle">Inactive</p>
+                </div>
+                <div class="researchSeparator1"></div>
+                <div class="researchCapsuleBody">
+                  <div class="researchCapsuleDescriptionContainer">
+                    <p class="researchCapsuleDescription">Multiply base BPS gain by floor(log2(1+milestones)/3)</strong></p>
+                  </div>
+                  <div class="researchSeparator2"></div>
+                  <div class="researchCapsuleProgressBar">
+                    <div class="researchCapsuleProgress">
+                      <div class="researchCapsuleProgressFill"></div>
+                    </div>
+                    <div class="researchCapsuleProgressNumberContainer">
+                      <p class="researchCapsuleProgressNumber">XP <span class="researchProgress" id="researchProgress14">0.00</span>/<span class="researchLimit" id="researchLimit14">25M</span></p>
+                    </div>
+                    <div class="researchCapsuleProgressPerSecondContainer">
+                      <p class="researchCapsuleProgressPerSecond"><span class="researchProgressPerSecond" id="researchProgressPerSecond14">0</span>/s</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="researchArrow researchRightArrow" id="researchRightArrow_7">
+            <p class="researchArrowText"> > </p>
+          </div>
+
+        </div>
+
+        <!-- page 8 -->
+        <div class="researchOuterGroup" id="researchPage_8">
+
+          <div class="researchArrow researchLeftArrow" id="researchLeftArrow_8">
+            <p class="researchArrowText"> < </p>
+          </div>
+
+          <div class="researchInnerGroup">
+            <p class="textCenterHorizontal researchTitle">Research Page 8</p>
+            
+            <!-- capsule layout -->
+            <div class="researchCapsuleContainer">
+
+              <div class="researchCapsule" id="researchCapsule15">
+                <div class="researchCapsuleHead">
+                  <p class="researchCapsuleTitle">R15</p>
+                  <p class="researchCapsuleToggle">Inactive</p>
+                </div>
+                <div class="researchSeparator1"></div>
+                <div class="researchCapsuleBody">
+                  <div class="researchCapsuleDescriptionContainer">
+                    <p class="researchCapsuleDescription">Multiply XP multi by 2</p>
+                  </div>
+                  <div class="researchSeparator2"></div>
+                  <div class="researchCapsuleProgressBar">
+                    <div class="researchCapsuleProgress">
+                      <div class="researchCapsuleProgressFill"></div>
+                    </div>
+                    <div class="researchCapsuleProgressNumberContainer">
+                      <p class="researchCapsuleProgressNumber">XP <span class="researchProgress" id="researchProgress15">0.00</span>/<span class="researchLimit" id="researchLimit15">50M</span></p>
+                    </div>
+                    <div class="researchCapsuleProgressPerSecondContainer">
+                      <p class="researchCapsuleProgressPerSecond"><span class="researchProgressPerSecond" id="researchProgressPerSecond15">0</span>/s</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="researchCapsule" id="researchCapsule16">
+                <div class="researchCapsuleHead">
+                  <p class="researchCapsuleTitle">R16</p>
+                  <p class="researchCapsuleToggle">Inactive</p>
+                </div>
+                <div class="researchSeparator1"></div>
+                <div class="researchCapsuleBody">
+                  <div class="researchCapsuleDescriptionContainer">
+                    <p class="researchCapsuleDescription">Research a way out</p>
+                  </div>
+                  <div class="researchSeparator2"></div>
+                  <div class="researchCapsuleProgressBar">
+                    <div class="researchCapsuleProgress">
+                      <div class="researchCapsuleProgressFill"></div>
+                    </div>
+                    <div class="researchCapsuleProgressNumberContainer">
+                      <p class="researchCapsuleProgressNumber">XP <span class="researchProgress" id="researchProgress16">0.00</span>/<span class="researchLimit" id="researchLimit16">250M</span></p>
+                    </div>
+                    <div class="researchCapsuleProgressPerSecondContainer">
+                      <p class="researchCapsuleProgressPerSecond"><span class="researchProgressPerSecond" id="researchProgressPerSecond16">0</span>/s</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="researchArrow researchRightArrow" id="researchRightArrow_8">
+            <p class="researchArrowText"> > </p>
+          </div>
+
+        </div>         
+
+      </div> <!-- AHHHHHHHHHHHHHHHHHH -->
+
+      <!-- Prestige Tab -->
+      <div id="tab-prestige" data-tab-content>
+
+        <div class="prestigeGroup">
+
+          <!-- escape animation stuff -->
+          <button type="button" id="escapeButton">Escape
+            <div id="slash"></div>
+          </button>
+          <div id="escapeMessage"></div>
+
+
+
 
         </div>
 
@@ -642,11 +1359,15 @@
                 <span class="statsHighlight">Milestones unlocked</span> = <span class="milestonesCount">0.00</span> [<span class="baseMilestonesCount">0.00</span>]
               </p>
 
+              <p>
+                <span class="statsHighlight">Researches finished</span> = <span class="researchCount">0.00</span> [<span class="baseResearchCount">0.00</span>]
+              </p>
+
             </div>
 
           </div>
 
-          <p class="endgameText">Endgame: 1Sx balls</p>
+          <p class="endgameText">Endgame: 1Dc balls</p>
 
         </div>
 
@@ -656,11 +1377,7 @@
 
     <!-- Link js to html -->
     <script src="script.js"></script>
+    <script src="liveReaction.js"></script>
   </body>
-
-
-  <footer>
-
-  </footer>
 
 </html>
